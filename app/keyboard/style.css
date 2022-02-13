@@ -1,0 +1,58 @@
+#keyboard {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  --gap: 3px;
+  gap: var(--gap);
+  font-size: calc(min(100vw/25,33vh/12));
+  width: 20.5em;
+  margin-bottom: 10px;
+}
+
+#keyboard div {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  gap: var(--gap);
+}
+
+#keyboard div:nth-child(2) {
+  margin-left: 0.5em;
+}
+
+
+#keyboard button {
+  min-width: 2em;
+  min-height: calc(max(2em,33vh/3));
+  font-size: 1em;
+  text-shadow: 1px 1px var(--white);  
+}
+
+#keyboard button::first-letter {
+  text-transform: uppercase;
+}
+
+#keyboard.over {
+  animation: bump 150ms linear 3;
+}
+@keyframes bump {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(0.25rem);    
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+#keyboard button:active,#keyboard button.active {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+#keyboard button {
+  border-radius: 0.125em;
+  border: none;
+}

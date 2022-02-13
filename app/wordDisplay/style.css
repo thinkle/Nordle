@@ -1,0 +1,156 @@
+:root {
+  --letter-gap : 0.25em;
+  --col-gap: 1em;
+  --slide-delay: 500ms;  
+}
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+
+.column {
+  transition: transform 500ms;
+  --width-size : calc(100vw / (10 * var(--n)));
+  --height-size : calc(100vh / 25);
+  --computed-size : calc(
+      min(
+        var(--width-size),
+        var(--height-size)
+      )
+  );
+  font-size: calc(
+    min(
+      max(
+        var(--computed-size),
+        8px
+      ),
+    44px
+    )
+  );
+}
+
+.complete {
+  font-size: 50%;
+}
+
+#words {
+  display: flex;
+  gap: var(--col-gap);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--letter-gap);
+}
+
+.guess {
+  list-style: none;
+  display: flex;
+  gap: var(--letter-gap);
+}
+.guess span {
+  width: 1.5em;
+  height: 1.5em;  
+  background-color: var(--white);
+  text-align: center;
+  display: grid;
+  place-content: center;
+  color: var(--white);
+  transition: color 270ms;
+}
+.guess span.typed {
+  color: var(--black);
+}
+.reveal.guess > span {
+  position: relative;
+  overflow: hidden;
+}
+.reveal.guess > span > span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-1.5em);
+  animation-name: slide-in;
+  animation-duration: var(--slide-delay);
+  animation-timing-function: linear;
+  transition: none 0s;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(-1.5em);  
+    text-color: transparent;  
+    opacity: 0;
+  }
+  95% {   
+    text-color: transparent; 
+  }
+  100% {
+    transform: translateX(0em);
+    text-color: initial;
+    opacity: 1;
+  }
+}
+
+.guess span.green span {
+  background-color: rgb(5, 224, 5);
+  color: rgb(12, 43, 12);
+}
+.guess span.yellow span {
+  background-color: rgb(255, 255, 79);
+  color: rgb(45,45,12);
+}
+.guess span.grey span {
+  background-color: rgb(77,77,98);
+}
+.reveal.guess span {
+  transition: all 500ms;
+}
+
+
+.reveal span:nth-child(1) span {
+  animation-delay: 0;
+  animation-timing-function: ease-in;
+}
+.reveal span:last-child span {
+  animation-timing-function: ease-out;
+}
+.reveal span:nth-child(2) span {
+  animation-delay: calc(var(--slide-delay)*1);
+}
+.reveal span:nth-child(3) span {
+  animation-delay: calc(var(--slide-delay)*2);
+}
+.reveal span:nth-child(4) span {
+  animation-delay: calc(var(--slide-delay)*3);
+}
+.reveal span:nth-child(5) span {
+  animation-delay: calc(var(--slide-delay)*4);
+}
+.reveal span:nth-child(6) {
+  animation-delay: calc(var(--slide-delay)*5);
+}
+
+.reveal span:nth-child(7) {
+  animation-delay: calc(var(--slide-delay)*6);
+}
+.reveal span:nth-child(8) {
+  animation-delay: calc(var(--slide-delay)*7);
+}
+
+.bad {
+  animation: shake 150ms ease-in-out 2;
+}
+
+@keyframes shake {
+  33% {
+    transform: translate(-0.2em)
+  }
+  66% {
+    transform: translate(0.2em);
+  }  
+}
