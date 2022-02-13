@@ -1,6 +1,6 @@
 import './keyboard/';
 import './settings';
-
+import './sizing';
 import {alpha} from './wordle/alpha';
 import {allWords} from './wordle';
 
