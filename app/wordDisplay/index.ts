@@ -59,11 +59,9 @@ onWordCommit(
             }
             onVictoryCallback();
           },
-          5//2500
-        )
-        
-      }
-      
+          2500
+        )        
+      }      
       return false;
     }    
   }
