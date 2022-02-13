@@ -2,11 +2,27 @@
   display: flex;
   flex-direction: column;
   margin: auto;
-  --gap: 3px;
+  --gap: 5px;
   gap: var(--gap);
-  font-size: calc(min(100vw/25,33vh/12));
-  width: 20.5em;
+  margin-left: auto;
+  margin-right: auto;
+  width: calc(var(--width)*10/11 + var(--gap)*9);
+  width: -webkit--fill-available;
   margin-bottom: 10px;
+}
+
+#keyboard button span {
+  background-color: transparent;
+}
+
+button span.big {
+  display: contents;
+}
+
+@media screen and (max-width: 900px) {
+  button span.big {
+    display: none;
+  }
 }
 
 #keyboard div {
@@ -20,12 +36,21 @@
   margin-left: 0.5em;
 }
 
-
+#keyboard button.inverse {
+  color: var(--white);
+  text-shadow: 2px 2px var(--black);
+}
 #keyboard button {
-  min-width: 2em;
-  min-height: calc(max(2em,33vh/3));
-  font-size: 1em;
-  text-shadow: 1px 1px var(--white);  
+  justify-self: stretch;
+  width: calc(var(--width)/11.5);
+  min-height: calc(max(3rem,33vh/3));
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--black);
+  text-shadow: 2px 2px var(--white);
+}
+#keyboard button.wide {
+  width: calc(var(--width)/8);
 }
 
 #keyboard button::first-letter {
@@ -47,9 +72,20 @@
   }
 }
 
-#keyboard button:active,#keyboard button.active {
-  background-color: var(--black);
-  color: var(--white);
+#keyboard button:active,#keyboard button.active {  
+  animation: pop 250ms ease-in-out;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }  
+  70% {
+    transform : scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 #keyboard button {

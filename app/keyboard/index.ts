@@ -58,7 +58,8 @@ for (let r of rows) {
 
 // Enter Button
 let enterButton = document.createElement('button');
-enterButton.innerText = 'Enter';
+enterButton.classList.add('wide');
+enterButton.innerHTML = '<span class="big"> Enter</span> ⏎';
 enterButton.addEventListener(
   'click',
   function () {
@@ -71,7 +72,8 @@ enterButton.addEventListener(
 
 // Delete Button
 let deleteButton = document.createElement('button');
-deleteButton.innerText = 'Del';
+deleteButton.classList.add('wide');
+deleteButton.innerText = '⌫';
 deleteButton.addEventListener(
   'click',
   function () {
@@ -82,6 +84,9 @@ deleteButton.addEventListener(
 document.querySelector('#keyboard div:nth-child(3) button:nth-child(1)').insertAdjacentElement('beforebegin',enterButton);
 document.querySelector('#keyboard div:nth-child(3)').appendChild(deleteButton);
 
+buttons['del'] = deleteButton;
+buttons['enter'] = enterButton;
+
 window.addEventListener(
   'keydown',
   function (event) {
@@ -89,22 +94,21 @@ window.addEventListener(
       console.log('ignore shift!');
       return false;
     }
+    var button;
     if (buttons[event.key]) {
-      buttons[event.key].focus();
-      buttons[event.key].click();
-      event.preventDefault();
+      button = buttons[event.key];            
     } 
     else if (event.key=='Enter') {
-      enterButton.focus();
-      enterButton.click();
-      event.preventDefault();
+      button = enterButton;
     }
     else if (event.key=='Backspace') {
-      deleteButton.focus();
-      deleteButton.click();
-      event.preventDefault();
+      button = deleteButton;
     } else {
       console.log('Ignore',event.key)
+    }
+    if (button) {
+      button.classList.add('active');
+      button.click();      
     }
 
   }
@@ -112,4 +116,15 @@ window.addEventListener(
 
 export function setKeyBackground (letter, bg) {
   buttons[letter].style.background = bg;
+  buttons[letter].classList.add('inverse');
+}
+
+for (let nm in buttons) {
+  let button = buttons[nm];
+  button.addEventListener(
+    'animationend',
+    function (event) {
+      event.target.classList.remove('active');
+    }
+  )
 }

@@ -11,8 +11,8 @@ ul {
 
 .column {
   transition: transform 500ms;
-  --width-size : calc(100vw / (10 * var(--n)));
-  --height-size : calc(100vh / 25);
+  --width-size : calc(var(--width) / (10 * var(--n)));
+  --height-size : calc(var(--height) / 25);
   --computed-size : calc(
       min(
         var(--width-size),
@@ -64,7 +64,22 @@ ul {
 }
 .guess span.typed {
   color: var(--black);
+  animation: pop 250ms ease-in-out;
+  transform-origin: center center;
 }
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }  
+  70% {
+    transform : scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .reveal.guess > span {
   position: relative;
   overflow: hidden;
@@ -97,15 +112,15 @@ ul {
 }
 
 .guess span.green span {
-  background-color: rgb(5, 224, 5);
+  background-color: var(--green);
   color: rgb(12, 43, 12);
 }
 .guess span.yellow span {
-  background-color: rgb(255, 255, 79);
+  background-color: var(--yellow);
   color: rgb(45,45,12);
 }
 .guess span.grey span {
-  background-color: rgb(77,77,98);
+  background-color: var(--grey);
 }
 .reveal.guess span {
   transition: all 500ms;
