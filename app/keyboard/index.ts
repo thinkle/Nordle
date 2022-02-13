@@ -108,7 +108,8 @@ window.addEventListener(
     }
     if (button) {
       button.classList.add('active');
-      button.click();      
+      button.click(); 
+      event.preventDefault();     
     }
 
   }
