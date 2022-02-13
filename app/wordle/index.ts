@@ -14,6 +14,9 @@ export function getTargetWords (n) {
   let list = [words[index]];
   for (let i=1; i<n; i++) {
     let idx = (index + i*(n*salt)) % words.length;
+    while (list.indexOf(words[idx]) > -1) {
+      idx += 1;
+    }
     list.push(words[idx])
   }
   return list;
