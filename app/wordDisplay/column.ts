@@ -1,5 +1,6 @@
 import {wordSize} from '../wordle';
 import {checkWordle} from '../wordle';
+import {gameOver} from './index';
 const G = 'var(--green,green)';
 const Y = 'var(--yellow,yellow)';
 const B = 'var(--grey,grey)';
@@ -44,7 +45,7 @@ export function makeColumn (guesses : number) : Column {
       // Check Word
       // Next word...
       let next : HTMLLIElement = this.currentRow.nextElementSibling;   
-      let result = checkWordle(word,this.target).split(/\s/);
+      let result = checkWordle(word,this.target);
       this.currentRow.classList.add('reveal');
       let correct = true;
       for (let i=0; i<this.currentRow.children.length; i++) {
@@ -79,7 +80,7 @@ export function makeColumn (guesses : number) : Column {
       if (correct) {
         this.complete = true;
         window.setTimeout(
-          ()=>this.col.classList.add('complete'),
+          ()=>!gameOver&&this.col.classList.add('complete'),
           2000
         )        
       }

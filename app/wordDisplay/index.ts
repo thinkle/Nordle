@@ -6,12 +6,23 @@ import {
   allowNoMoreChanges
 } from '../settings';
 import {
-  onWordChange, onWordCommit,
-  setKeyBackground
+  onWordChange, 
+  onWordCommit,
+  setKeyBackground,
+  resetKeyboard
 } from '../keyboard';
 
+export let gameOver = false;
 let wordsDiv = document.querySelector('#words')
 let columns : Column[] = [];
+export let guesses : String[] = [];
+export let targets : String[] = [];
+export let nth;
+let onVictoryCallback = ()=>window.alert('Wow, go you!');
+
+export function onVictory (f : ()=>void) {
+  onVictoryCallback = f;
+}
 
 onWordCommit(
   (word : String) => {
@@ -20,22 +31,38 @@ onWordCommit(
         (c)=>c.indicateBadWord()
       );
       return true;
-    } else {
+    } else {      
       allowNoMoreChanges();
+      guesses.push(word);
       columns.forEach(
         (c)=>c.onCommit(word)
       );   
 
-      let active = columns.find((c)=>!c.complete)   
-      window.setTimeout(
-        function () {
-          for (let ltr in active.letters) {
-                  let bg = makeGradient(ltr);
-                  setKeyBackground(ltr,bg);
-          }
-        },
-        2000
-      )   
+      let active = columns.find((c)=>!c.complete);
+      if (active) {
+        window.setTimeout(
+          function () {
+            for (let ltr in active.letters) {
+                    let bg = makeGradient(ltr);
+                    setKeyBackground(ltr,bg);
+            }
+          },
+          2000
+        )   
+      } else {
+        gameOver = true;
+        window.setTimeout(
+          function () {
+            resetKeyboard();
+            for (let c of columns) {
+              c.col.classList.remove('complete');
+            }
+            onVictoryCallback();
+          },
+          5//2500
+        )
+        
+      }
       
       return false;
     }    
@@ -48,19 +75,27 @@ onWordChange(
 )
 
 export function makeColumns (n : number, limit : number) {
+  nth = n;
   wordsDiv.innerHTML = ''; // empty
   columns = [];
+  guesses = [];
+  targets = [];
+  gameOver = false;
   let targetWords = getTargetWords(n)
   for (let i=0; i<n; i++) {
     let column = makeColumn(limit);
     column.target = targetWords[i];
+    targets.push(targetWords[i]);
     wordsDiv.appendChild(column.col);
     columns.push(column);    
   }  
-  wordsDiv.style = `
-    --n : ${n}; --limit: ${limit};
-  `
-  
+  wordsDiv.style.setProperty(
+    '--n',`${n}`
+  );
+  wordsDiv.style.setProperty(
+    '--limit',
+    `${limit}`
+  );
 }
 
 function makeGradient (ltr) {

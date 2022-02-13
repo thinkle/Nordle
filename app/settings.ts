@@ -37,6 +37,15 @@ nInput.addEventListener('change',updateColumns)
 
 updateColumns();
 let editMode = true;
+
+export function allowChanges () {
+  nInput.style.display = 'initial';
+  for  (let w of document.querySelectorAll('.nb')) {
+    w.style.display = 'initial';
+  }
+  editMode = true;
+}
+
 export function allowNoMoreChanges () {
   if (editMode) {
   nInput.style.display = 'none';

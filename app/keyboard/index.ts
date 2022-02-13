@@ -91,7 +91,6 @@ window.addEventListener(
   'keydown',
   function (event) {
     if (event.ctrlKey || event.metaKey) {
-      console.log('ignore shift!');
       return false;
     }
     var button;
@@ -118,6 +117,13 @@ window.addEventListener(
 export function setKeyBackground (letter, bg) {
   buttons[letter].style.background = bg;
   buttons[letter].classList.add('inverse');
+}
+
+export function resetKeyboard () {
+  for (let k in buttons) {
+    buttons[k].style.background = '';
+    buttons[k].classList.remove('inverse');
+  }
 }
 
 for (let nm in buttons) {

@@ -1,36 +1,15 @@
 import './keyboard/';
 import './settings';
 import './sizing';
-import {alpha} from './wordle/alpha';
-import {allWords} from './wordle';
+import {showVictory} from './victory'
+//import './devtool';
+import {onVictory} from './wordDisplay';
+import {allowChanges} from './settings';
 
-if (false) {
-  let cont = document.querySelector('#words')
-  let ul = document.createElement('pre');
-  cont.appendChild(ul);
-  ul.style.position = 'fixed';
-  ul.style.height = '100vh'
-  ul.style.top = '0';
-  ul.style.fontSize = '14pt';
-  ul.style.backgroundColor = 'black';
-  ul.style.color = 'green';
-  ul.style.overflowY = 'scroll';
-  ul.style.width = '300px';
-  ul.innerHTML = allWords.filter((w)=>w[0]!='a'&&w.length==5&&w[4]!='s'&&alpha.indexOf(w)==-1).map((w)=>`'${w}',`).join('\n');
-}
-if (false) {
-  let cont = document.querySelector('#words')
-  let ul = document.createElement('pre');
-  cont.appendChild(ul);
-  ul.style.position = 'fixed';
-  ul.style.height = '100vh'
-  ul.style.top = '0';
-  ul.style.fontSize = '14pt';
-  ul.style.backgroundColor = 'black';
-  ul.style.color = 'green';
-  ul.style.overflowY = 'scroll';
-  ul.style.width = '300px';
-  ul.innerHTML = alpha.sort(
-    (a,b)=>Math.random()*2-1
-  ).map((w)=>`'${w}'`).join(',');
-}
+
+onVictory(
+  ()=>{
+    showVictory();
+    allowChanges();
+  }
+)

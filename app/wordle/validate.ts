@@ -41,18 +41,5 @@ export function checkWordle (guess, word) {
       }
     }
   }
-  let result = results.join(' ');  
-  return result;
+  return results;
 }
-
-function testCheck () {
-  // guess, word
-  console.log('teete/elite',checkWordle('teete','elite'))
-  console.log('Expect', '⬛ ⬛ 🟨 🟩 🟩')
-  console.log('seven/zesty',checkWordle('seven','zesty'))
-  console.log('Expect', '🟨 🟩 ⬛ ⬛ ⬛ ')
-  console.log('eeven/zesty',checkWordle('eeven','zesty'))
-  console.log('Expect', '⬛ 🟩 ⬛ ⬛ ⬛ ')
-}
-
-
