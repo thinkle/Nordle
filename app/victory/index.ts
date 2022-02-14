@@ -1,6 +1,7 @@
 import './style.css';
 import {guesses,targets,nth} from '../wordDisplay';
 import {drawVictory} from './draw';
+import {wordleTextResult} from './wordleText';
 export function showVictory (correct, total) {
   let vdiv = document.querySelector('#victory');
   vdiv.innerHTML = `
@@ -10,7 +11,8 @@ export function showVictory (correct, total) {
         
       <div id="draw"></div>
     </div>    
-    <button class="cp">Copy</button>
+    <button class="ct">Copy</button>
+    <button class="cp">Copy Img</button>
     <button class="c">Close</button>
     </div>
   `;
@@ -35,5 +37,9 @@ export function showVictory (correct, total) {
     const item = new ClipboardItem({ "text/html": blob });
     navigator.clipboard.write([item]);
     }
-  )
+  );
+
+
+  let copyTextButton = vdiv.querySelector('.ct');
+  navigator.clipboard.writeText(wordleTextResult(correct,total));
 }
