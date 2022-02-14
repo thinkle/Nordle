@@ -1,4 +1,4 @@
-import {alpha} from './wordle/alpha';
+import {words} from './wordle/words';
 import {allWords} from './wordle';
 
 // list 5-letter words not yet on our list
@@ -14,7 +14,7 @@ if (true) {
   ul.style.color = 'green';
   ul.style.overflowY = 'scroll';
   ul.style.width = '300px';
-  ul.innerHTML = allWords.filter((w)=>w[0]!='a'&&w.length==5&&w[4]!='s'&&alpha.indexOf(w)==-1).map((w)=>`'${w}',`).join('\n');
+  ul.innerHTML = allWords.filter((w)=>w.length==5&&w[4]!='s'&&words.indexOf(w)==-1).map((w)=>`'${w}',`).join('\n');
 }
 
 // randomize current list...
