@@ -10,17 +10,19 @@
       <header>
         <h1>Nordle (Wordle<sup>n</sup>)</h1>  
         <span class="geek">
-          n=<span class="ninput"><input type="number" value="3" id="n">
+          n=<span class="ninput"><input 
+          aria-label="Number of words"
+          type="number" value="3" id="n">
         </span></span>  
-        <button id="fs">
+        <button aria-label="Toggle full screen" id="fs">
           </button>
       </header>      
-      <div id="words"></div>
+      <div role="words" id="words"></div>
       <footer>
-        <div id="keyboard"></div>
+        <div role="onscreen keyboard" id="keyboard"></div>
       </footer>
     </main>
-    <div id="victory" class="modal">
+    <div role="victory screen" id="victory" class="modal">
     </div>
     <script type="module" src="/main.js"></script>
   </body>

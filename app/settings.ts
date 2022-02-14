@@ -3,8 +3,8 @@ let nInput : HTMLInputElement = document.querySelector('#n');
 
 nInput.insertAdjacentHTML(
   'afterend',
-  `<button class="nb nup">▲</button>
-  <button class="nb ndown">▼</button>
+  `<button aria-label="Add another word" class="nb nup">▲</button>
+  <button aria-label="Remove a word" class="nb ndown">▼</button>
   `
 );
 

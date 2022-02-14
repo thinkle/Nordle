@@ -83,6 +83,7 @@ export function makeColumns (n : number, limit : number) {
   for (let i=0; i<n; i++) {
     let column = makeColumn(limit);
     column.target = targetWords[i];
+    column.col.role = `Word number ${i+1}`
     targets.push(targetWords[i]);
     wordsDiv.appendChild(column.col);
     columns.push(column);    

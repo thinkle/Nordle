@@ -21,6 +21,8 @@ export function makeColumn (guesses : number) : Column {
   let firstGuess : HTMLLIElement;
   for (let i=0; i<guesses; i++) {
     let guess = document.createElement('li');
+    guess.setAttribute('role','guess');
+    
     guess.classList.add('guess')
     for (let ltr=0; ltr<wordSize; ltr++) {
       let span = document.createElement('span');
@@ -29,6 +31,8 @@ export function makeColumn (guesses : number) : Column {
     col.appendChild(guess);    
     if (!firstGuess) {
       firstGuess = guess;
+      guess.setAttribute('tabindex',0)
+      guess.setAttribute('aria-label','No guess')
     }
   }
   let timeouts = [];
@@ -46,7 +50,10 @@ export function makeColumn (guesses : number) : Column {
       // Next word...
       let next : HTMLLIElement = this.currentRow.nextElementSibling;   
       let result = checkWordle(word,this.target);
+      let a11yResult = result;
       this.currentRow.classList.add('reveal');
+      this.currentRow.setAttribute('tabindex','0');
+      this.currentRow.setAttribute('aria-label',`Guessed ${word}: Result ${a11yResult}`);
       let correct = true;
       for (let i=0; i<this.currentRow.children.length; i++) {
         let childSpan = this.currentRow.children[i];
@@ -70,6 +77,7 @@ export function makeColumn (guesses : number) : Column {
             this.letters[word[i]] = B;
           }
         }
+        
         revealSpan.addEventListener(
           "animationend",
           (event) => {
@@ -85,8 +93,11 @@ export function makeColumn (guesses : number) : Column {
         )        
       }
       this.currentRow = next;
+      this.currentRow.setAttribute('tabindex','0');
+      this.currentRow.setAttribute('aria-label','Current guess: (no word)');
     },
     onChange : function (word : string) {
+      this.currentRow.setAttribute('aria-label',`Current guess: ${word}`);
       if (this.complete) {return}
       for (let t of timeouts) {
         window.clearTimeout(t)

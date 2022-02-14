@@ -40,6 +40,8 @@ for (let r of rows) {
   for (let ltr of r.split('')) {
     let button = document.createElement('button');
     button.innerText = ltr;
+    button.setAttribute('role','keyboard');
+    button.setAttribute('aria-label',ltr) ;
     rowDiv.appendChild(button);
     buttons[ltr] = button;
     button.addEventListener(
