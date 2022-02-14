@@ -36,12 +36,14 @@ kbd.addEventListener(
 
 for (let r of rows) {
   let rowDiv = document.createElement('div');
+  rowDiv.setAttribute('role','row');
   kbd.appendChild(rowDiv);
   for (let ltr of r.split('')) {
     let button = document.createElement('button');
     button.innerText = ltr;
-    button.setAttribute('role','keyboard');
+    button.setAttribute('role','gridcell');
     button.setAttribute('aria-label',ltr) ;
+    button.setAttribute('tabindex','0');
     rowDiv.appendChild(button);
     buttons[ltr] = button;
     button.addEventListener(

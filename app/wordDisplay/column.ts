@@ -15,6 +15,13 @@ export type Column = {
   letters : {},
 }
 
+function makeAriaInput (el) {
+  el.setAttribute('tabindex','0')
+  el.setAttribute('aria-label','No guess')
+  el.setAttribute('role','textbox');
+  el.setAttribute('aria-multiline','false')
+}
+
 export function makeColumn (guesses : number) : Column {
   let col = document.createElement('ul');
   col.classList.add('column')
@@ -31,8 +38,7 @@ export function makeColumn (guesses : number) : Column {
     col.appendChild(guess);    
     if (!firstGuess) {
       firstGuess = guess;
-      guess.setAttribute('tabindex',0)
-      guess.setAttribute('aria-label','No guess')
+      makeAriaInput(guess);
     }
   }
   let timeouts = [];
@@ -53,11 +59,13 @@ export function makeColumn (guesses : number) : Column {
       let a11yResult = result;
       this.currentRow.classList.add('reveal');
       this.currentRow.setAttribute('tabindex','0');
+      this.currentRow.setAttribute('role','listitem');
       this.currentRow.setAttribute('aria-label',`Guessed ${word}: Result ${a11yResult}`);
       let correct = true;
       for (let i=0; i<this.currentRow.children.length; i++) {
         let childSpan = this.currentRow.children[i];
         let revealSpan = document.createElement('span');
+        revealSpan.setAttribute('aria-hidden',true);
         childSpan.appendChild(revealSpan);
         revealSpan.innerText = word[i].toUpperCase();     
         let letterResult = result[i];
@@ -93,11 +101,14 @@ export function makeColumn (guesses : number) : Column {
         )        
       }
       this.currentRow = next;
-      this.currentRow.setAttribute('tabindex','0');
-      this.currentRow.setAttribute('aria-label','Current guess: (no word)');
+      makeAriaInput(this.currentRow);
     },
     onChange : function (word : string) {
-      this.currentRow.setAttribute('aria-label',`Current guess: ${word}`);
+      let suffix = ''
+      if (word.length == wordSize) {
+        suffix = ' (type Enter to submit guess)'
+      }
+      this.currentRow.setAttribute('aria-label',`Current guess: ${word}${suffix}`);
       if (this.complete) {return}
       for (let t of timeouts) {
         window.clearTimeout(t)
@@ -124,6 +135,10 @@ export function makeColumn (guesses : number) : Column {
       }
       console.log('Bad word!');
       this.currentRow.classList.add('bad');
+      this.currentRow.setAttribute(
+        'aria-label',
+        this.currentRow.getAttribute('aria-label')+' Invalid word'
+      );
       this.currentRow.addEventListener(
         'animationend',
         function (event) {
