@@ -2,7 +2,7 @@ import {alpha} from './wordle/alpha';
 import {allWords} from './wordle';
 
 // list 5-letter words not yet on our list
-if (false) {
+if (true) {
   let cont = document.querySelector('#words')
   let ul = document.createElement('pre');
   cont.appendChild(ul);

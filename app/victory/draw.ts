@@ -18,12 +18,14 @@ let sty = getComputedStyle(canvas);
   canvas.style.display = 'none';
   let ctx = canvas.getContext('2d');
   ctx.strokeStyle = GREY;
+  let completed = [];
   for (let gi=0; gi<targets.length+5; gi++) {
     let guess = guesses[gi];
     let y = 5 + 25 * gi;
     for (let ti=0; ti<targets.length; ti++) {
       let x = 5 + (25 * (wordSize+1) * ti);
-      if (!guess) {
+      let areWeDone = true;
+      if (!guess || completed[ti]) {
         var result : String|String[] = 'eeeee'
       } else {
         result = checkWordle(guess,targets[ti]);
@@ -33,10 +35,12 @@ let sty = getComputedStyle(canvas);
           ctx.fillStyle = GREEN;
         } else if (result[i]=='🟨') {
           ctx.fillStyle = YELLOW;
+          areWeDone = false;
         } else {
           ctx.fillStyle = GREY;
+          areWeDone = false;
         }
-        if (guess) {
+        if (guess && !completed[ti]) {
           ctx.fillRect(
             x + i*25,
             y,
@@ -50,6 +54,9 @@ let sty = getComputedStyle(canvas);
           20,
           20
         );
+      }
+      if (areWeDone) {
+        completed[ti] = true;
       }
     } 
   }

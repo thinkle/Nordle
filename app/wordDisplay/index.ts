@@ -19,6 +19,7 @@ export let guesses : String[] = [];
 export let targets : String[] = [];
 export let nth;
 export let nguesses;
+
 let onFinishCallback = (w : number,n :number)=>window.alert('Wow, go you!');
 
 export function onFinish (f : (wins,n)=>void) {
@@ -62,7 +63,7 @@ onWordCommit(
               for (let c of columns) {
                 c.col.classList.remove('complete');
               }
-              onFinishCallback(complete,nguesses);
+              onFinishCallback(complete,nth);
             },
             2500
           )  
@@ -75,7 +76,7 @@ onWordCommit(
             for (let c of columns) {
               c.col.classList.remove('complete');
             }
-            onFinishCallback(nguesses,nguesses);
+            onFinishCallback(nth,nth);
           },
           2500
         )        

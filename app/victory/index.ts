@@ -2,7 +2,6 @@ import './style.css';
 import {guesses,targets,nth} from '../wordDisplay';
 import {drawVictory} from './draw';
 export function showVictory (correct, total) {
-  debugger;
   let vdiv = document.querySelector('#victory');
   vdiv.innerHTML = `
     <div class="center">
