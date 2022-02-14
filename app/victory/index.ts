@@ -1,12 +1,14 @@
 import './style.css';
 import {guesses,targets,nth} from '../wordDisplay';
 import {drawVictory} from './draw';
-export function showVictory () {
+export function showVictory (correct, total) {
+  debugger;
   let vdiv = document.querySelector('#victory');
   vdiv.innerHTML = `
     <div class="center">
       <div class="msg" style="font-weight:bold">      
-        <a href="${window.location}">Nordle ${new Date().toLocaleDateString()} n=${nth}</a>
+        <a href="${window.location}">Nordle ${new Date().toLocaleDateString()} n=${nth}, ${correct}/${total}</a>
+        
       <div id="draw"></div>
     </div>    
     <button class="cp">Copy</button>

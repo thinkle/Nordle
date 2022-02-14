@@ -101,7 +101,9 @@ export function makeColumn (guesses : number) : Column {
         )        
       }
       this.currentRow = next;
-      makeAriaInput(this.currentRow);
+      if (this.currentRow) {
+        makeAriaInput(this.currentRow);
+      }
     },
     onChange : function (word : string) {
       let suffix = ''

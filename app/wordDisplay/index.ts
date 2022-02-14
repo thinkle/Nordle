@@ -18,10 +18,11 @@ let columns : Column[] = [];
 export let guesses : String[] = [];
 export let targets : String[] = [];
 export let nth;
-let onVictoryCallback = ()=>window.alert('Wow, go you!');
+export let nguesses;
+let onFinishCallback = (w : number,n :number)=>window.alert('Wow, go you!');
 
-export function onVictory (f : ()=>void) {
-  onVictoryCallback = f;
+export function onFinish (f : (wins,n)=>void) {
+  onFinishCallback = f;
 }
 
 onWordCommit(
@@ -40,15 +41,32 @@ onWordCommit(
 
       let active = columns.find((c)=>!c.complete);
       if (active) {
-        window.setTimeout(
-          function () {
-            for (let ltr in active.letters) {
-                    let bg = makeGradient(ltr);
-                    setKeyBackground(ltr,bg);
-            }
-          },
-          2000
-        )   
+        if (guesses.length < nguesses) {
+          window.setTimeout(
+            function () {
+              for (let ltr in active.letters) {
+                      let bg = makeGradient(ltr);
+                      setKeyBackground(ltr,bg);
+              }
+            },
+            2000
+          )   
+        } else {
+          debugger;
+          gameOver = true;
+          window.setTimeout(
+            function () {
+              resetKeyboard();
+              let complete = 0;
+              columns.forEach((c)=>{if (c.complete) {complete+=1}});
+              for (let c of columns) {
+                c.col.classList.remove('complete');
+              }
+              onFinishCallback(complete,nguesses);
+            },
+            2500
+          )  
+        } 
       } else {
         gameOver = true;
         window.setTimeout(
@@ -57,11 +75,12 @@ onWordCommit(
             for (let c of columns) {
               c.col.classList.remove('complete');
             }
-            onVictoryCallback();
+            onFinishCallback(nguesses,nguesses);
           },
           2500
         )        
       }      
+      
       return false;
     }    
   }
@@ -78,6 +97,7 @@ export function makeColumns (n : number, limit : number) {
   columns = [];
   guesses = [];
   targets = [];
+  nguesses = limit;
   gameOver = false;
   let targetWords = getTargetWords(n)
   for (let i=0; i<n; i++) {
