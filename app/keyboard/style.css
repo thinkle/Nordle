@@ -5,9 +5,9 @@
   --gap: 5px;
   gap: var(--gap);
   margin-left: auto;
-  margin-right: auto;
-  width: calc(var(--width)*10/11 + var(--gap)*9);
-  width: -webkit--fill-available;
+  margin-right: auto;  
+  width: calc(var(--width)*10/11);
+  overflow-x: scroll;
   margin-bottom: 10px;
 }
 
@@ -40,9 +40,10 @@ button span.big {
   color: var(--white);
   text-shadow: 2px 2px var(--black);
 }
+
 #keyboard button {
   justify-self: stretch;
-  width: calc(var(--width)/11.5);
+  width: calc(var(--width)/11.5); /*11.5);*/
   min-height: calc(max(3rem,33vh/3));
   font-size: 1.5em;
   font-weight: bold;
@@ -91,4 +92,17 @@ button span.big {
 #keyboard button {
   border-radius: 0.125em;
   border: none;
+}
+
+@media screen and (max-width: 400px) {
+  #keyboard {
+    --gap: 1px;    
+    width: -webkit-fill-available;
+  }
+  #keyboard button {
+    font-size: .8rem;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: calc(var(--width)/10);
+  }
 }
