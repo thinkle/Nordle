@@ -5,8 +5,8 @@ export function showVictory () {
   let vdiv = document.querySelector('#victory');
   vdiv.innerHTML = `
     <div class="center">
-      <div class="msg">      
-        <b>Nordle ${new Date().toLocaleDateString()} n=${nth}</b>
+      <div class="msg" style="font-weight:bold">      
+        <a href="${window.location}">Nordle ${new Date().toLocaleDateString()} n=${nth}</a>
       <div id="draw"></div>
     </div>    
     <button class="cp">Copy</button>

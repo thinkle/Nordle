@@ -30,11 +30,22 @@ document.querySelector('.ndown')
 function updateColumns () {
   let v = nInput.valueAsNumber;
   let guesses = 5 + v;
+  window.history.replaceState(
+    null,'Nordle','?n='+v
+  )
+  //location.search = '?n='+v;
   makeColumns(v,guesses);
 }
 
 nInput.addEventListener('change',updateColumns)
 
+
+if (location.search) {
+  if (location.search.indexOf('?n=')==0) {
+    let n = Number(location.search.substr(3));
+    nInput.valueAsNumber = n;
+  }
+}
 updateColumns();
 let editMode = true;
 
