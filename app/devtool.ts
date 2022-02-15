@@ -1,5 +1,25 @@
 import {words} from './wordle/words';
-import {allWords} from './wordle';
+import {allWords, getTargetWords, setToday} from './wordle';
+if (false) {
+  let out = document.createElement('div');
+  let txt = `
+  <pre>
+  `
+  for (let d=1; d<15; d++) {
+    let date = new Date(2099,1,d);
+    setToday(date);
+    txt += '\nNEW DAY:\n'
+    for (let n=1; n<31; n++) {
+      txt += getTargetWords(n) + '\n';
+    }
+  }
+  out.innerHTML = txt+'</pre>'
+  document.querySelector('main').style.display = 'none';
+  document.querySelector('body')
+  .appendChild(out);
+
+}
+
 
 // list 5-letter words not yet on our list
 if (true) {
