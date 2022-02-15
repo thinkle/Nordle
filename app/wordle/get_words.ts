@@ -1,7 +1,7 @@
 import {words} from './words';
 
 let today = new Date()
-let dateKey = today.getDate() * 30 + today.getFullYear() + today.getMonth() * 12;
+export let dateKey = today.getDate() * 30 + today.getFullYear() + today.getMonth() * 12;
 
 console.log(today,'=>',dateKey);
 let salt = 54;

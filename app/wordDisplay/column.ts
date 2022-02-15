@@ -22,11 +22,11 @@ function makeAriaInput (el) {
   el.setAttribute('aria-multiline','false')
 }
 
-export function makeColumn (guesses : number) : Column {
+export function makeColumn (nguesses : number) : Column {  
   let col = document.createElement('ul');
   col.classList.add('column')
   let firstGuess : HTMLLIElement;
-  for (let i=0; i<guesses; i++) {
+  for (let i=0; i<nguesses; i++) {
     let guess = document.createElement('li');
     guess.setAttribute('role','guess');
     
