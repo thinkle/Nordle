@@ -8,6 +8,9 @@
   <body>    
     <main>
       <header>
+        <button id="a11y" 
+          aria-label="Turn on accessibility mode"
+        ><img id="a11y"></button>
         <h1>Nordle (Wordle<sup>n</sup>)</h1>  
         <span class="geek">
           n=<span class="ninput"><input 
@@ -16,7 +19,13 @@
         </span></span>  
         <button aria-label="Toggle full screen" id="fs">
           </button>
-      </header>      
+      </header>  
+      <div class="a11y-entry">
+        <form>
+          <input type="entry" aria-label="Enter guess here:">
+          <input type="submit" aria-label="Commit guess!">
+        </form>
+      </div>
       <div role="group" aria-label="words" id="words"></div>
       <footer>
         <div aria-label="onscreen keyboard" role="grid" id="keyboard"></div>

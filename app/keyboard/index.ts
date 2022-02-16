@@ -2,11 +2,11 @@ import './style.css';
 import {wordSize} from '../wordle/';
 type stringCallback = (word : string) => void;
 type completeCallback = (word : string) => boolean;
-let changeListener : stringCallback = function (word : string) {
+export let changeListener : stringCallback = function (word : string) {
   console.log('Typed: ',word);
 }
 
-let wordListener : completeCallback = function (word : string) {
+export let wordListener : completeCallback = function (word : string) {
   return false;
 }
 
@@ -26,6 +26,10 @@ let rows = [
 let word = '';
 let kbd = document.querySelector('#keyboard');
 let buttons = {};
+
+export function setWord (w : string) {
+  word = w;
+}
 
 kbd.addEventListener(
   'animationend',
@@ -97,6 +101,10 @@ window.addEventListener(
     if (event.ctrlKey || event.metaKey) {
       return false;
     }
+    if (event.target.closest('form')) {
+      console.log('Event in form ignore!');
+      return false;
+    }
     var button;
     if (buttons[event.key]) {
       button = buttons[event.key];            
@@ -139,3 +147,27 @@ for (let nm in buttons) {
     }
   )
 }
+
+
+/* A11Y */
+
+let a11yForm = document.querySelector('form');
+let entry : HTMLInputElement = document.querySelector('form input');
+a11yForm.addEventListener(
+  'submit',
+  (event) => {
+    word = entry.value;
+    if (!wordListener(word)) {
+      word = '';
+      entry.value = '';
+    }
+    event.preventDefault();
+  }
+);
+entry.addEventListener(
+  'input',
+  ()=>{
+    word = entry.value;
+    changeListener(word);
+  }
+)

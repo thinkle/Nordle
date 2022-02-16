@@ -1,3 +1,5 @@
+import a11yURL from '../a11y.png';
+
 import {makeColumns} from './wordDisplay';
 let nInput : HTMLInputElement = document.querySelector('#n');
 
@@ -70,3 +72,15 @@ export function allowNoMoreChanges () {
   editMode = false
   }
 }
+
+document.querySelector('#a11y img').src = a11yURL;
+
+document.querySelector('#a11y').addEventListener(
+  'click',
+  (event)=>{
+    document.querySelector('form').classList.toggle(
+      'active'
+    );
+    document.querySelector('form input').focus();
+  }
+)

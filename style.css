@@ -157,3 +157,27 @@ h1 {
 #n,.n {
   grid-area: inp;
 }
+
+#a11y {
+  display: grid;
+  place-content: center;
+}
+#a11y img {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+}
+
+
+form {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+form.active {
+  animation: slide-down 300ms;  
+  display: flex;
+}
