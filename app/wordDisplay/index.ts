@@ -1,7 +1,7 @@
 import './style.css';
 import  {makeColumn} from './column.ts';
 import  {Column} from './column.ts';
-import {isWord, getTargetWords} from '../wordle';
+import {isWord, getTargetWords, wordSize} from '../wordle';
 import {
   allowNoMoreChanges
 } from '../settings';
@@ -84,7 +84,7 @@ function commitColumnsAndKeyboard (word, noninteractive=false) {
 }
 
 let commitWord =  (word : String) => {
-    if (!isWord(word)) {
+    if (!isWord(word) || word.length != wordSize) {
       columns.forEach(
         (c)=>c.indicateBadWord()
       );
@@ -112,6 +112,11 @@ export function makeColumns (n : number, limit : number) {
   wordsDiv.innerHTML = ''; // empty
   columns = [];
   guesses = getWords(n);
+  // Fix bad guesses we saved by
+  // accident :-\
+  guesses = guesses.filter(
+    (w)=>w.length==wordSize&&isWord(w)
+  );
   targets = [];
   nguesses = limit;
   gameOver = false;
