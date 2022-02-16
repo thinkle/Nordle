@@ -45,7 +45,7 @@ button span.big {
   justify-self: stretch;
   width: calc(var(--width)/11.5); /*11.5);*/
   min-height: calc(max(3rem,33vh/3));
-  font-size: 1.5em;
+  font-size: 2em;
   font-weight: bold;
   color: var(--black);
   text-shadow: 2px 2px var(--white);
@@ -101,9 +101,11 @@ button span.big {
     width: -webkit-fill-available;
   }
   #keyboard button {
-    font-size: .8rem;
+    font-size: 0.8rem;
     border-radius: 5px;
     box-sizing: border-box;
     width: calc(var(--width)/10);
+    display: grid;
+    place-content: center;
   }
 }

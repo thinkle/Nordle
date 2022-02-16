@@ -98,15 +98,18 @@ header h1 {
 .nb {
   height: 1.5em;
   border: none;
+  display: flex;  
 }
 #n {
   width: 1.5em;
   height: 1.5em;
-  font-size: 2em;
+  vertical-align: middle;
+  font-size: 1.5em;
   padding: none;
   box-sizing: border-box;
   display: grid;
   place-content: center;
+  place-self: center;
   text-align: center;
 }
 input[type='number']::-webkit-outer-spin-button {
