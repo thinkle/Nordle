@@ -5,13 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nordle</title>
   </head>
-  <body>    
-    <main>
+  <body style="border:0;margin:0;padding:0;">    
+    <div class="hide-after-load"
+      style="display:grid;place-content:center;width:100vw;height:100vh;background-color:#222;color:#ccc;font-family:InputMono, Courier, Monospace, mono;"
+    >
+      Nordle is coming...
+    </div>
+    <main class='hide-while-load' style="opacity:0">
       <header>
         <button id="a11y" 
           aria-label="Turn on accessibility mode"
         ><img id="a11y"></button>
-        <h1>Nordle (Wordle<sup>n</sup>)</h1>  
+        <h1>Nordle (Wordle<sup>n</sup>)</h1> 
+         
         <span class="geek">
           n=<span class="ninput"><input 
           aria-label="Number of words"

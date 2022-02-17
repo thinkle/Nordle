@@ -19,7 +19,10 @@
   padding: 3em;
   border: 10px solid var(--green);
   border-radius: 15px;
+  max-width: calc(100%-4em);
+  overflow: auto;
 }
+
 #victory.active {
   transform: scale(1);
   pointer-events: all;

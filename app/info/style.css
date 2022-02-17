@@ -1,0 +1,53 @@
+span.info .tooltip {
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-10px)translateX(-30px);
+  position: absolute;
+  z-index: 2;
+  transition: all 300ms;
+}
+
+span.info:hover .tooltip {
+  transform: translateY(0)translateX(-25px);
+  opacity: 1;
+  background-color: var(--yellow);
+  color: var(--black);
+}
+
+button.info {
+  background-color: var(--black);
+  color: var(--white);
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+}
+.modal .close {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  border-radius: 50%;
+  border: none;
+}
+.modal {
+  max-width: calc(min(100vw,450px));
+  max-height: calc(100vh - 55px);
+  position: fixed;
+  top: 55px;
+  overflow-y: scroll;
+  left: calc(50vw - (min(100vw,450px)/2));
+  background-color: var(--white);
+  color: var(--black);
+  font-family: InputSerif;
+  padding: 1em;
+  line-height: 1.4;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-300px);
+  transition: all 300ms;
+}
+.modal.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+
+}

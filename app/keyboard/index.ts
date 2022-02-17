@@ -150,13 +150,14 @@ for (let nm in buttons) {
 
 
 /* A11Y */
-
 let a11yForm = document.querySelector('form');
 let entry : HTMLInputElement = document.querySelector('form input');
 a11yForm.addEventListener(
   'submit',
   (event) => {
-    word = entry.value.toLowerCase();
+    word = entry.value
+      .toLowerCase()
+      .replace(/\s*/g,'');
     if (!wordListener(word)) {
       word = '';
       entry.value = '';
@@ -164,10 +165,13 @@ a11yForm.addEventListener(
     event.preventDefault();
   }
 );
+
 entry.addEventListener(
   'input',
   ()=>{
-    word = entry.value.toLowerCase();
+    word = entry.value
+    .toLowerCase()
+    .replace(/\s*/g,'');
     changeListener(word);
   }
 )

@@ -52,7 +52,7 @@ ul {
   display: flex;
   gap: var(--letter-gap);
 }
-.guess span {
+.guess span,.block {
   width: 1.5em;
   height: 1.5em;  
   background-color: var(--white);
@@ -111,15 +111,15 @@ ul {
   }
 }
 
-.guess span.green span {
+.guess span.green span,.block.green {
   background-color: var(--green);
   color: rgb(12, 43, 12);
 }
-.guess span.yellow span {
+.guess span.yellow span,.block.yellow {
   background-color: var(--yellow);
   color: rgb(45,45,12);
 }
-.guess span.grey span {
+.guess span.grey span,.block.grey {
   background-color: var(--grey);
 }
 .reveal.guess span {

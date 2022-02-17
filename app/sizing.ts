@@ -35,24 +35,27 @@ fsButton.addEventListener(
 }
 );
 
-b.style.setProperty(
-  '--height',
-  `${window.innerHeight}px`
-);
-b.style.setProperty(
-      '--width',
-      `${window.innerWidth}px`
+
+function updateSize () {
+  b.style.setProperty(
+      '--height',
+      `${document.documentElement.clientHeight || window.innerHeight}px`
     );
+  b.style.setProperty(
+      '--width',
+      `${document.documentElement.clientWidth || window.innerWidth}px`
+    );
+}
+
+window.addEventListener("orientationchange", function() {
+    // Announce the new orientation number
+    updateSize();
+}, false);
 window.addEventListener(
   'resize',
   function () {
-    b.style.setProperty(
-      '--height',
-      `${window.innerHeight}px`
-    );
-    b.style.setProperty(
-      '--width',
-      `${window.innerWidth}px`
-    );
+    updateSize();
   }
 )
+
+updateSize();
