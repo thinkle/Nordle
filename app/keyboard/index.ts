@@ -156,7 +156,7 @@ let entry : HTMLInputElement = document.querySelector('form input');
 a11yForm.addEventListener(
   'submit',
   (event) => {
-    word = entry.value;
+    word = entry.value.toLowerCase();
     if (!wordListener(word)) {
       word = '';
       entry.value = '';
@@ -167,7 +167,7 @@ a11yForm.addEventListener(
 entry.addEventListener(
   'input',
   ()=>{
-    word = entry.value;
+    word = entry.value.toLowerCase();
     changeListener(word);
   }
 )
