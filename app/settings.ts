@@ -45,7 +45,9 @@ nInput.addEventListener('change',updateColumns)
 if (location.search) {
   if (location.search.indexOf('?n=')==0) {
     let n = Number(location.search.substr(3));
-    nInput.valueAsNumber = n;
+    if (n) {
+      nInput.valueAsNumber = n;
+    }
   }
 }
 updateColumns();
