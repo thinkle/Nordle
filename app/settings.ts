@@ -83,6 +83,7 @@ document.querySelector('#a11y').addEventListener(
     document.querySelector('form').classList.toggle(
       'active'
     );
+    document.querySelector('#words').classList.toggle('a11y');
     document.querySelector('form input').focus();
   }
 )

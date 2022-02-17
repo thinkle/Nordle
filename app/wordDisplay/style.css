@@ -127,34 +127,40 @@ ul {
 }
 
 
-.reveal span:nth-child(1) span {
+.reveal span:nth-child(1) > *,
+ {
   animation-delay: 0;
   animation-timing-function: ease-in;
 }
-.reveal span:last-child span {
+.reveal span:last-child > * {
   animation-timing-function: ease-out;
 }
-.reveal span:nth-child(2) span {
+.reveal span:nth-child(2) > * {
   animation-delay: calc(var(--slide-delay)*1);
 }
-.reveal span:nth-child(3) span {
+.reveal span:nth-child(3) > * {
   animation-delay: calc(var(--slide-delay)*2);
 }
-.reveal span:nth-child(4) span {
+.reveal span:nth-child(4) > * {
   animation-delay: calc(var(--slide-delay)*3);
 }
-.reveal span:nth-child(5) span {
+.reveal span:nth-child(5) > * {
   animation-delay: calc(var(--slide-delay)*4);
 }
-.reveal span:nth-child(6) {
+.reveal span:nth-child(6) > * {
   animation-delay: calc(var(--slide-delay)*5);
 }
 
-.reveal span:nth-child(7) {
+.reveal span:nth-child(7) > * {
   animation-delay: calc(var(--slide-delay)*6);
 }
-.reveal span:nth-child(8) {
+.reveal span:nth-child(8) > * {
   animation-delay: calc(var(--slide-delay)*7);
+}
+
+.no-animate  * {
+  animation-delay: 0s !important;
+  animation-duration: 0ms !important;
 }
 
 .bad {

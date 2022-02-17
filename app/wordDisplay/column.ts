@@ -1,5 +1,5 @@
 import {wordSize} from '../wordle';
-import {checkWordle} from '../wordle';
+import {checkWordle, a11ySquares} from '../wordle';
 import {gameOver} from './index';
 const G = 'var(--green,green)';
 const Y = 'var(--yellow,yellow)';
@@ -16,6 +16,7 @@ export type Column = {
 }
 
 function makeAriaInput (el) {
+  el.classList.add('active');
   el.setAttribute('tabindex','0')
   el.setAttribute('aria-label','No guess')
   el.setAttribute('role','textbox');
@@ -43,6 +44,12 @@ export function makeColumn (nguesses : number) : Column {
   }
   let timeouts = [];
   
+  function makeA11yResult (result) {
+
+    return result.map(
+      (s)=>a11ySquares[s]
+    )
+  }
 
   let column = {
     complete : false,
@@ -56,7 +63,7 @@ export function makeColumn (nguesses : number) : Column {
       // Next word...
       let next : HTMLLIElement = this.currentRow.nextElementSibling;   
       let result = checkWordle(word,this.target);
-      let a11yResult = result;
+      let a11yResult = makeA11yResult(result);
       this.currentRow.classList.add('reveal');
       this.currentRow.setAttribute('tabindex','0');
       this.currentRow.setAttribute('role','listitem');
@@ -65,7 +72,7 @@ export function makeColumn (nguesses : number) : Column {
       for (let i=0; i<this.currentRow.children.length; i++) {
         let childSpan = this.currentRow.children[i];
         let revealSpan = document.createElement('span');
-        revealSpan.setAttribute('aria-hidden',true);
+        revealSpan.setAttribute('aria-hidden','true');        
         childSpan.appendChild(revealSpan);
         revealSpan.innerText = word[i].toUpperCase();     
         let letterResult = result[i];
@@ -85,11 +92,16 @@ export function makeColumn (nguesses : number) : Column {
             this.letters[word[i]] = B;
           }
         }
+        childSpan.insertAdjacentHTML(
+          'beforeend',
+          `<div class="a11y">${a11yResult[i]}</div>`
+        )
         
         revealSpan.addEventListener(
           "animationend",
           (event) => {
             revealSpan.style.transform = 'translateX(0)';
+            revealSpan.style.opacity = '1';
           }
         );        
       }
@@ -100,9 +112,17 @@ export function makeColumn (nguesses : number) : Column {
           2000
         )        
       }
+      let lastRow = this.currentRow;
+      window.setTimeout(
+        ()=>{
+          lastRow.classList.add('no-animate');
+        },
+        2500
+      );
       this.currentRow = next;
       if (this.currentRow) {
         makeAriaInput(this.currentRow);
+        
       }
     },
     onChange : function (word : string) {

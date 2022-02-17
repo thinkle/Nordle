@@ -1,4 +1,5 @@
 import './style.css';
+import './a11y.css';
 import  {makeColumn} from './column.ts';
 import  {Column} from './column.ts';
 import {isWord, getTargetWords, wordSize} from '../wordle';
@@ -34,7 +35,12 @@ function commitColumnsAndKeyboard (word, noninteractive=false) {
     delay = 0;
   }
   columns.forEach(
-    (c)=>c.onCommit(word)
+    (c)=>{
+      if (noninteractive) {
+        c.currentRow.classList.add('no-animate')
+      }
+      c.onCommit(word)
+    }
   );
 
   let active = columns.find((c)=>!c.complete);

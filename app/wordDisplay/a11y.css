@@ -1,0 +1,52 @@
+/* Don't mess up default */
+.guess span div.a11y {
+  display: none;
+}
+
+.a11y .column {
+  font-size: calc(
+    max(var(--computed-size),1rem)
+  );
+}
+
+.a11y .guess {
+  margin-top: 0.5em;
+}
+
+
+.a11y .guess span div.a11y {
+  display: grid;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: -1.5em;
+  color: var(--white);
+  z-index: 2;
+  font-size: 1rem;
+}
+
+.a11y .reveal.guess > span {
+    overflow: unset;
+}
+.a11y .reveal.guess > span > span {
+  animation-name: fade-in;
+  opacity: 0;
+  transform-origin: left;
+}
+.a11y .reveal.guess span div {
+  animation-name: fade-in;
+  animation-duration: 300ms;
+}
+
+@keyframes fade-in {
+  0% { 
+    opacity: 1; 
+    color: var(--black); 
+    transform: scaleX(0);
+  }
+  100% { 
+    opacity: 1; 
+    color: var(--white);
+    transform: scaleX(1); 
+  }
+}

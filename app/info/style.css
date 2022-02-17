@@ -22,9 +22,9 @@ button.info {
   height: 1.5em;
 }
 .modal .close {
-  position: absolute;
-  top: 3px;
-  right: 3px;
+  position: sticky;
+  top: 1px;
+  float: right;
   border-radius: 50%;
   border: none;
 }
@@ -32,6 +32,7 @@ button.info {
   max-width: calc(min(100vw,450px));
   max-height: calc(100vh - 55px);
   position: fixed;
+  
   top: 55px;
   overflow-y: scroll;
   left: calc(50vw - (min(100vw,450px)/2));
@@ -49,5 +50,5 @@ button.info {
   opacity: 1;
   transform: translateY(0);
   pointer-events: all;
-
+  z-index: 2;
 }
