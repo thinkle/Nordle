@@ -140,3 +140,8 @@ entry.addEventListener("input", () => {
   word = entry.value.toLowerCase().replace(/\s*/g, "");
   changeListener(word);
 });
+
+export function pushWord(w) {
+  setWord(w);
+  wordListener(word);
+}

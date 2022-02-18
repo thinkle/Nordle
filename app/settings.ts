@@ -1,7 +1,7 @@
 import a11yURL from "../a11y.png";
 
 import { makeColumns } from "./wordDisplay";
-let nInput: HTMLInputElement = document.querySelector("#n");
+export let nInput: HTMLInputElement = document.querySelector("#n");
 let nDisplay: HTMLSpanElement = document.querySelector("#ndisplay");
 nInput.insertAdjacentHTML(
   "afterend",

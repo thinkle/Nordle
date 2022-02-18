@@ -1,4 +1,5 @@
 import "./style.css";
+import { setupPlusOne } from "./plusOne";
 import { guesses, targets, nth } from "../wordDisplay";
 import { drawVictory } from "./draw";
 import { wordleTextResult } from "./wordleText";
@@ -12,10 +13,15 @@ export function showVictory(correct, total) {
         }">Nordle ${new Date().toLocaleDateString()} n=${nth}, ${correct}/${total}</a>
         
       <div id="draw"></div>
-    </div>    
-    <button class="ct">Copy</button>
-    <button class="cp">Copy Img</button>
-    <button class="c">Close</button>
+    </div> 
+      <div class="bar">   
+        <button class="ct">Copy</button>
+        <button class="cp">Copy Img</button>        
+        <span class="right">
+          
+          <button class="plusOne">n+1</button>
+      </div>
+      <button class="c">&times;</button>
     </div>
   `;
   let cb = vdiv.querySelector("button.c");
@@ -25,6 +31,7 @@ export function showVictory(correct, total) {
   let canvas = document.createElement("canvas");
   document.documentElement.appendChild(canvas);
   drawVictory(canvas, guesses, targets);
+  setupPlusOne(vdiv, cb);
   vdiv.classList.add("active");
 
   let copyButton = vdiv.querySelector(".cp");
