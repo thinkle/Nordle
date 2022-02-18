@@ -1,49 +1,37 @@
-import a11yURL from '../a11y.png';
+import a11yURL from "../a11y.png";
 
-import {makeColumns} from './wordDisplay';
-let nInput : HTMLInputElement = document.querySelector('#n');
+import { makeColumns } from "./wordDisplay";
+let nInput: HTMLInputElement = document.querySelector("#n");
 
 nInput.insertAdjacentHTML(
-  'afterend',
+  "afterend",
   `<button aria-label="Add another word" class="nb nup">▲</button>
   <button aria-label="Remove a word" class="nb ndown">▼</button>
   `
 );
 
-document.querySelector('.nup')
-.addEventListener(
-  'click',
-  function () {
-    nInput.valueAsNumber += 1;
-    updateColumns();
-  }
-)
+document.querySelector(".nup").addEventListener("click", function () {
+  nInput.valueAsNumber += 1;
+  updateColumns();
+});
 
-document.querySelector('.ndown')
-.addEventListener(
-  'click',
-  function () {
-    nInput.valueAsNumber -= 1;
-    updateColumns();
-  }
-)
+document.querySelector(".ndown").addEventListener("click", function () {
+  nInput.valueAsNumber -= 1;
+  updateColumns();
+});
 
-
-function updateColumns () {
+function updateColumns() {
   let v = nInput.valueAsNumber;
   let guesses = 5 + v;
-  window.history.replaceState(
-    null,'Nordle','?n='+v
-  )
+  window.history.replaceState(null, "Nordle", "?n=" + v);
   //location.search = '?n='+v;
-  makeColumns(v,guesses);
+  makeColumns(v, guesses);
 }
 
-nInput.addEventListener('change',updateColumns)
-
+nInput.addEventListener("change", updateColumns);
 
 if (location.search) {
-  if (location.search.indexOf('?n=')==0) {
+  if (location.search.indexOf("?n=") == 0) {
     let n = Number(location.search.substr(3));
     if (n) {
       nInput.valueAsNumber = n;
@@ -53,37 +41,32 @@ if (location.search) {
 updateColumns();
 let editMode = true;
 
-export function allowChanges () {
-  nInput.style.display = 'initial';
-  for  (let w of document.querySelectorAll('.nb')) {
-    w.style.display = 'initial';
+export function allowChanges() {
+  nInput.style.display = "initial";
+  for (let w of document.querySelectorAll(".nb")) {
+    w.style.display = "initial";
   }
   editMode = true;
 }
 
-export function allowNoMoreChanges () {
+export function allowNoMoreChanges() {
   if (editMode) {
-  nInput.style.display = 'none';
-  for  (let w of document.querySelectorAll('.nb')) {
-    w.style.display = 'none';
-  }
-  nInput.insertAdjacentHTML(
-    'afterend',
-    `<span class="n">${nInput.value}</span>`
-  )
-  editMode = false
+    nInput.style.display = "none";
+    for (let w of document.querySelectorAll(".nb")) {
+      w.style.display = "none";
+    }
+    nInput.insertAdjacentHTML(
+      "afterend",
+      `<span class="n">${nInput.value}</span>`
+    );
+    editMode = false;
   }
 }
 
-document.querySelector('#a11y img').src = a11yURL;
+document.querySelector("#a11y img").src = a11yURL;
 
-document.querySelector('#a11y').addEventListener(
-  'click',
-  (event)=>{
-    document.querySelector('form').classList.toggle(
-      'active'
-    );
-    document.querySelector('#words').classList.toggle('a11y');
-    document.querySelector('form input').focus();
-  }
-)
+document.querySelector("#a11y").addEventListener("click", (event) => {
+  document.querySelector("form").classList.toggle("active");
+  document.querySelector("#words").classList.toggle("a11y");
+  document.querySelector("form input").focus();
+});

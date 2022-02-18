@@ -1,43 +1,43 @@
-function countLetter (word, letter) {
+function countLetter(word, letter) {
   let count = 0;
   for (let ltr of word) {
-    if (ltr==letter) {
-      count += 1
+    if (ltr == letter) {
+      count += 1;
     }
   }
   return count;
 }
 
-export function checkWordle (guess, word) {
+export function checkWordle(guess, word) {
   guess = guess.toLowerCase();
   word = word.toLowerCase();
-  let results = [];  
-  let matches = {}
-  for (let i=0; i<word.length; i++) {
+  let results = [];
+  let matches = {};
+  for (let i = 0; i < word.length; i++) {
     let ltr = guess[i];
-    if (word[i]==ltr) {
-      results.push('🟩');
+    if (word[i] == ltr) {
+      results.push("🟩");
       if (!matches[ltr]) {
-        matches[ltr] = 0
+        matches[ltr] = 0;
       }
-      matches[ltr] += 1
-    } else if (word.indexOf(ltr)==-1) {
-      results.push('⬛');
+      matches[ltr] += 1;
+    } else if (word.indexOf(ltr) == -1) {
+      results.push("⬛");
     } else {
-      results.push('?');
+      results.push("?");
     }
   }
-  for (let i=0; i<results.length; i++) {
+  for (let i = 0; i < results.length; i++) {
     let result = results[i];
-    if (result=='?') {
+    if (result == "?") {
       let ltr = guess[i];
-      let numberInWord = countLetter(word,ltr);
-      let numberAlreadyFound = matches[ltr] || 0
+      let numberInWord = countLetter(word, ltr);
+      let numberAlreadyFound = matches[ltr] || 0;
       if (numberInWord - numberAlreadyFound > 0) {
-        results[i] = '🟨';
+        results[i] = "🟨";
         matches[ltr] = numberAlreadyFound + 1;
       } else {
-        results[i] = '⬛';
+        results[i] = "⬛";
       }
     }
   }

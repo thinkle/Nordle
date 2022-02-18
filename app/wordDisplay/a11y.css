@@ -4,15 +4,12 @@
 }
 
 .a11y .column {
-  font-size: calc(
-    max(var(--computed-size),2rem)
-  );
+  font-size: calc(max(var(--computed-size), 2rem));
 }
 
 .a11y .guess {
   margin-top: 0.5em;
 }
-
 
 .a11y .guess span div.a11y {
   display: grid;
@@ -22,11 +19,11 @@
   top: -1.5em;
   color: var(--white);
   z-index: 2;
-  font-size: .35em;
+  font-size: 0.35em;
 }
 
 .a11y .reveal.guess > span {
-    overflow: unset;
+  overflow: unset;
 }
 .a11y .reveal.guess > span > span {
   animation-name: fade-in;
@@ -39,14 +36,14 @@
 }
 
 @keyframes fade-in {
-  0% { 
-    opacity: 1; 
-    color: var(--black); 
+  0% {
+    opacity: 1;
+    color: var(--black);
     transform: scaleX(0);
   }
-  100% { 
-    opacity: 1; 
+  100% {
+    opacity: 1;
     color: var(--white);
-    transform: scaleX(1); 
+    transform: scaleX(1);
   }
 }

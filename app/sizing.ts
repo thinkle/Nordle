@@ -1,61 +1,62 @@
-import fsUrl from '../fullscreen.svg';
+import fsUrl from "../fullscreen.svg";
 
-let fsButton = document.querySelector('#fs');
-let img = document.createElement('img');
+let fsButton: HTMLButtonElement = document.querySelector("#fs");
+let img = document.createElement("img");
 img.src = fsUrl;
 fsButton.appendChild(img);
-img.style.width = '1em';
-img.style.height = '1em';
-fsButton.style.marginLeft = 'auto';
+img.style.width = "1em";
+img.style.height = "1em";
+fsButton.style.marginLeft = "auto";
 
-let b = document.querySelector('body');
+let b = document.querySelector("body");
 let fsMode = false;
-fsButton.addEventListener(
-  'click',
-  function () {
-    if (!fsMode) {
-      let el = document.documentElement
-      if (el.requestFullscreen) {
+fsButton.addEventListener("click", function () {
+  if (!fsMode) {
+    let el = document.documentElement;
+    if (el.requestFullscreen) {
       el.requestFullscreen();
-    } else if (el.webkitRequestFullscreen) { /* Safari */
+    } else if (el.webkitRequestFullscreen) {
+      /* Safari */
       el.webkitRequestFullscreen();
-    } else if (el.msRequestFullscreen) { /* IE11 */
+    } else if (el.msRequestFullscreen) {
+      /* IE11 */
       el.msRequestFullscreen();
-    }  
+    }
   } else {
     if (document.exitFullscreen) {
-    document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) { /* Safari */
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      /* Safari */
       document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { /* IE11 */
+    } else if (document.msExitFullscreen) {
+      /* IE11 */
       document.msExitFullscreen();
     }
   }
   fsMode = !fsMode;
-}
-);
+});
 
-
-function updateSize () {
+function updateSize() {
   b.style.setProperty(
-      '--height',
-      `${document.documentElement.clientHeight || window.innerHeight}px`
-    );
+    "--height",
+    `${document.documentElement.clientHeight || window.innerHeight}px`
+  );
   b.style.setProperty(
-      '--width',
-      `${document.documentElement.clientWidth || window.innerWidth}px`
-    );
+    "--width",
+    `${document.documentElement.clientWidth || window.innerWidth}px`
+  );
 }
 
-window.addEventListener("orientationchange", function() {
+window.addEventListener(
+  "orientationchange",
+  function () {
     // Announce the new orientation number
     updateSize();
-}, false);
-window.addEventListener(
-  'resize',
-  function () {
-    updateSize();
-  }
-)
+  },
+  false
+);
+window.addEventListener("resize", function () {
+  updateSize();
+});
 
 updateSize();

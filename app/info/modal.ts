@@ -1,35 +1,28 @@
-let modalWrap = document.createElement('div');
-document.documentElement.appendChild(
-  modalWrap
-);
+let modalWrap = document.createElement("div");
+document.documentElement.appendChild(modalWrap);
 
 modalWrap.innerHTML = `
   <div class="modal about">
     
   </div>
 
-`
-let modal = 
-  document.querySelector('.modal.about');
-export function hideModal () {
-  modal.classList.remove('active')
+`;
+let modal = document.querySelector(".modal.about");
+export function hideModal() {
+  modal.classList.remove("active");
 }
 
-export function toggleModal () {
-  if (modal.classList.contains('active')) {
+export function toggleModal() {
+  if (modal.classList.contains("active")) {
     hideModal();
   } else {
     showModal();
   }
 }
 
-
-export function showModal () {
-  
-  modal.classList
-  .add('active');
-  modal
-  .innerHTML = `
+export function showModal() {
+  modal.classList.add("active");
+  modal.innerHTML = `
   <button class="close">&times;</button>
   <p>So you've played wordle, right?</p>
     <p>This game is that, but more.</p>
@@ -90,11 +83,5 @@ export function showModal () {
     </p>
 
     `;
-    modal.querySelector('.close')
-    .addEventListener(
-      'click',
-      hideModal
-    )
-
+  modal.querySelector(".close").addEventListener("click", hideModal);
 }
-
