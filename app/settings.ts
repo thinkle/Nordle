@@ -2,7 +2,7 @@ import a11yURL from "../a11y.png";
 
 import { makeColumns } from "./wordDisplay";
 let nInput: HTMLInputElement = document.querySelector("#n");
-
+let nDisplay: HTMLSpanElement = document.querySelector("#ndisplay");
 nInput.insertAdjacentHTML(
   "afterend",
   `<button aria-label="Add another word" class="nb nup">▲</button>
@@ -43,6 +43,7 @@ let editMode = true;
 
 export function allowChanges() {
   nInput.style.display = "initial";
+  nDisplay.style.display = "none";
   for (let w of document.querySelectorAll(".nb")) {
     w.style.display = "initial";
   }
@@ -52,13 +53,11 @@ export function allowChanges() {
 export function allowNoMoreChanges() {
   if (editMode) {
     nInput.style.display = "none";
+    nDisplay.style.display = "initial";
     for (let w of document.querySelectorAll(".nb")) {
       w.style.display = "none";
     }
-    nInput.insertAdjacentHTML(
-      "afterend",
-      `<span class="n">${nInput.value}</span>`
-    );
+    nDisplay.innerText = nInput.value;
     editMode = false;
   }
 }
