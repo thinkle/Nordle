@@ -23,7 +23,7 @@ function drawCanv(
   function setupCanvasSize() {
     canvas.width =
       5 + targets.length * (1 + wordSize) * SW + (targets.length - 1 * SW);
-    canvas.height = SW * 2 + (targets.length + 4) * SW + SW * 2;
+    canvas.height = SW * 4 + (targets.length + 4) * SW + SW * 2;
     let ratio = canvas.width / canvas.height;
     canvas.style.height = `${canvas.height}px`; //"calc(var(--height)/2)";
     canvas.style.width = `${canvas.width}px`; // `calc(var(--height)*${ratio}/2)`;
