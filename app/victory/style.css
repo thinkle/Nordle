@@ -15,14 +15,15 @@
   display: grid;
   place-content: center;
   z-index: 2;
-  background-color: #fff5;
+  background-color: #fff6;
 }
 #victory > * {
   background-color: var(--white);
   color: var(--black);
   padding: 3em;
-  border: 10px solid var(--green);
-  border-radius: 15px;
+  border: 1px solid var(--grey);
+  box-shadow: 3px 3px #0004;
+  border-radius: 5px;
   max-width: calc(100vw - 10em);
   overflow: auto;
   max-height: calc(100vh - 10em);
@@ -66,7 +67,7 @@
 }
 #victory .bar {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 3px;
 }
 #victory button {
@@ -79,13 +80,13 @@
   display: inline-block;
 }
 #victory button:hover {
-  background-color: var(--green);
-  color: var(--black);
+  background-color: var(--highlight);
+  color: var(--highlight-fg);
   transition: all 300ms;
 }
 #victory button.plusOne {
-  background-color: var(--green);
-  color: var(--black);
+  background-color: var(--highlight);
+  color: var(--highlight-fg);
   font-weight: bold;
 }
 #victory button.c:hover {

@@ -1,8 +1,8 @@
-export { checkWordle } from "./validate";
-export let wordSize = 5;
+export { checkWordle, checkGuesses } from "./validate";
+export { wordSize } from './constants';
 import { isWord, allWords } from "./dictionary";
 import { words } from "./words";
-export { getTargetWords, setToday } from "./get_words";
+export { getTargetWords, setToday, getDateKey } from "./get_words";
 export { a11ySquares } from "./a11y";
 
 for (let w of words) {

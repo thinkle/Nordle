@@ -33,10 +33,11 @@ export function showModal() {
     of <b>n</b>. Which is to say, there are a
     <em>lot</em> of puzzles each day :) </p>
     <h3>Haven't played wordle?</h3>
-    <p>Ok, fair enough. You enter a guess and 
+    <p>Ok, fair enough. I'm thinking of a 5-letter word (or in nordle's case, <b>n</b> 5-letter words).</p>
+    <p>You enter a guess and 
     I'll color the squares to tell you about
-    how each letter compares to the words I'm
-    thinking of.</p>  
+    how each letter compares to the letters in the word(s) I'm
+    thinking of:</p>  
     <table>
     <tr>
       <td> 

@@ -1,4 +1,5 @@
-import { dateKey } from "./wordle/get_words";
+import { dateKey, getDateKey } from "../wordle/get_words";
+import {checkGuesses} from '../wordle/';
 
 export function getWords(n) {
   let key = `${dateKey}-${n}`;

@@ -1,3 +1,12 @@
 {
-  "files": {}
+  "files": {
+    "app/data/wordStorage.ts": [
+      {
+        "id": "d52f2a80-d293-4f34-abe3-b2d7e13e9e3e",
+        "line": 17,
+        "version": 37,
+        "index": 391
+      }
+    ]
+  }
 }

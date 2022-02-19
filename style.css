@@ -20,6 +20,8 @@
   --green : #81c14b;
   --grey: #595c5b;
   --yellow: #f5b700;
+  --highlight: #e2424f;
+  --highlight-fg: white;
 }
 header button {
   transition: transform 300ms;

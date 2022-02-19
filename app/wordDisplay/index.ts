@@ -1,7 +1,7 @@
 import "./style.css";
 import "./a11y.css";
-import { makeColumn } from "./column.ts";
-import { Column } from "./column.ts";
+import { makeColumn } from "./column";
+import { Column } from "./column";
 import { isWord, getTargetWords, wordSize } from "../wordle";
 import { allowNoMoreChanges } from "../settings";
 import {
@@ -11,7 +11,7 @@ import {
   resetKeyboard,
 } from "../keyboard";
 
-import { getWords, saveWords } from "../storage";
+import { getWords, saveWords, storeGame } from "../data/";
 
 export let gameOver = false;
 let wordsDiv = document.querySelector("#words");
@@ -88,6 +88,7 @@ let commitWord = (word: String) => {
     allowNoMoreChanges();
     guesses.push(word);
     saveWords(nth, guesses);
+    storeGame(guesses,targets)
     commitColumnsAndKeyboard(word);
     return false;
   }

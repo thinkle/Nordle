@@ -4,16 +4,30 @@ export function setToday(d) {
   today = d;
 }
 
+export function getDateKey (date) {
+  //return date.getDate() * 30 + date.getFullYear() + date.getMonth() * 12  
+  let baseDay = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate()
+  ).getTime();
+  let baseTime = new Date(2022,0,1);
+  let ms = baseDay - baseTime.getTime();
+  let s = ms / 1000;
+  let m = s / 60;
+  let h = m / 60
+  let d = h / 24;
+  return d;
+}
+
 let today = new Date();
-export let dateKey =
-  today.getDate() * 30 + today.getFullYear() + today.getMonth() * 12;
+export let dateKey = getDateKey(today);
 
 console.log(today, "=>", dateKey);
 let salt = 54;
 let salt2 = 117;
 export function getTargetWords(n) {
-  let dateKey =
-    today.getDate() * 30 + today.getFullYear() + today.getMonth() * 12;
+  dateKey = getDateKey(today);
   let index = (salt2 * n + dateKey) % words.length;
   let list = [words[index]];
   for (let i = 1; i < n; i++) {

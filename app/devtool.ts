@@ -2,11 +2,13 @@ import { words } from "./wordle/words";
 import { allWords, getTargetWords, setToday } from "./wordle";
 import { targets } from "./wordDisplay/";
 import { pushWord } from "./keyboard/";
-
-const TEST_VICTORY = true;
+import {getDateKey} from './wordle/';
+const SHOW_KEYS = false;
+const TEST_VICTORY = false;
 const TEST_WORDGET = false;
 const SHOW_POSSIBLE_WORDS = false;
-const SHUFFLE_WORDS = false;
+const SHUFFLE_WORDS = true;
+
 
 if (TEST_VICTORY) {
   pushWord("happy");
@@ -15,7 +17,20 @@ if (TEST_VICTORY) {
     pushWord(w);
   }
 }
-
+if (SHOW_KEYS) {
+  let out = document.querySelector('#words');
+  let txt;
+  let today = new Date();
+  for (let i=0; i<20; i++) {
+    let day = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDay()+i);
+    let key = getDateKey(day);
+    txt += `<br>${day} => ${key}`;
+  }
+  out.innerHTML = txt;
+}
 if (TEST_WORDGET) {
   let out = document.createElement("div");
   let txt = `
@@ -66,8 +81,8 @@ if (SHUFFLE_WORDS) {
   ul.style.color = "green";
   ul.style.overflowY = "scroll";
   ul.style.width = "300px";
-  ul.innerHTML = alpha
+  ul.innerHTML = words
     .sort((a, b) => Math.random() * 2 - 1)
-    .map((w) => `'${w}'`)
-    .join(",");
+    .map((w) => `"${w}""`)
+    .join(",\n  ");
 }
