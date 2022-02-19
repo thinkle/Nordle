@@ -1,23 +1,25 @@
 @font-face {
-  font-family : InputSerifNarrowWeb;
-  src: url("./fonts/InputSerifNarrow/InputSerifNarrow-Thin.ttf") format('truetype');
+  font-family: InputSerifNarrowWeb;
+  src: url("./fonts/InputSerifNarrow/InputSerifNarrow-Thin.ttf")
+    format("truetype");
 }
 
 @font-face {
-  font-family: 'InputBetaMono';
-  src: url("./fonts/InputMonoBeta/InputMonov2-Regular.ttf") format('truetype');
+  font-family: "InputBetaMono";
+  src: url("./fonts/InputMonoBeta/InputMonov2-Regular.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'InputBetaSerifMono';
-  src: url("./fonts/InputMonoBeta/InputSerifMonov2-Regular.ttf") format('truetype');
+  font-family: "InputBetaSerifMono";
+  src: url("./fonts/InputMonoBeta/InputSerifMonov2-Regular.ttf")
+    format("truetype");
 }
 
 :root {
-  --white : #c5d5e4;
-  --black : #222;
-  --bg : #3c1518;
-  --green : #81c14b;
+  --white: #c5d5e4;
+  --black: #222;
+  --bg: #3c1518;
+  --green: #81c14b;
   --grey: #595c5b;
   --yellow: #f5b700;
   --highlight: #e2424f;
@@ -44,12 +46,15 @@ html {
   margin-bottom: 1em;
 }
 
-
-
+html {
+  font-family: InputBetaSerifMono, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
 main {
   display: flex;
   flex-direction: column;
-  font-family: InputBetaSerifMono, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: InputBetaSerifMono, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   height: var(--height, calc(100vh - 10px));
   justify-content: space-between;
   padding-top: 2px;
@@ -66,7 +71,7 @@ header {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-size: .8em;
+  font-size: 0.8em;
   max-height: 10vh;
   position: sticky;
   top: 0;
@@ -81,18 +86,19 @@ header {
   color: var(--black);
 }
 
-header button, header input {
+header button,
+header input {
   background: var(--white);
   border: none;
 }
-
-
 
 header h1 {
   font-size: 1.2rem;
   color: var(--black);
   margin-left: auto;
-  font-family: InputSerifNarrowWeb, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: InputSerifNarrowWeb, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
 }
 
 @media screen and (max-width: 600px) {
@@ -107,12 +113,11 @@ header h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 .nb {
   height: 1.5em;
   border: none;
-  display: flex;  
+  display: flex;
 }
 #n {
   width: 1.5em;
@@ -126,10 +131,10 @@ header h1 {
   place-self: center;
   text-align: center;
 }
-input[type='number']::-webkit-outer-spin-button {
+input[type="number"]::-webkit-outer-spin-button {
   display: none;
 }
-input[type='number']::-webkit-inner-spin-button {
+input[type="number"]::-webkit-inner-spin-button {
   display: none;
 }
 
@@ -166,9 +171,10 @@ h1 {
   grid-area: up;
 }
 .ninput .ndown {
-  grid-area: dwn
+  grid-area: dwn;
 }
-#n,.n {
+#n,
+.n {
   grid-area: inp;
 }
 
@@ -182,7 +188,6 @@ h1 {
   border-radius: 50%;
 }
 
-
 form {
   margin-top: 4px;
   margin-bottom: 4px;
@@ -192,6 +197,6 @@ form {
 }
 
 form.active {
-  animation: slide-down 300ms;  
+  animation: slide-down 300ms;
   display: flex;
 }
