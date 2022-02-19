@@ -3,19 +3,18 @@ import { setupPlusOne } from "./plusOne";
 import { guesses, targets, nth } from "../wordDisplay";
 import { drawVictory } from "./draw";
 import { wordleTextResult } from "./wordleText";
-import {getGameInfo} from "../data/"
+import { getGameInfo } from "../data/";
 export function showVictory(correct, total) {
   let vdiv = document.querySelector("#victory");
-  let gameInfo = getGameInfo(guesses,targets)
+  let gameInfo = getGameInfo(guesses, targets);
   vdiv.innerHTML = `
-    <div class="center">
-      <pre>
-        ${JSON.stringify(gameInfo)}
-      </pre>
+    <div class="center">      
       <div class="msg" style="font-weight:bold">      
         <a href="${
           window.location
-        }">Nordle ${new Date().toLocaleDateString()} n=${nth}, ${gameInfo.number_solved}/${gameInfo.n}</a>
+        }">Nordle ${new Date().toLocaleDateString()} n=${nth}, ${
+    gameInfo.number_solved
+  }/${gameInfo.n}</a>
         
       <div id="draw"></div>
     </div> 
