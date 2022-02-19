@@ -3,7 +3,8 @@ import { setupPlusOne } from "./plusOne";
 import { guesses, targets, nth } from "../wordDisplay";
 import { drawVictory } from "./draw";
 import { wordleTextResult } from "./wordleText";
-import { getGameInfo } from "../data/";
+import { getGameInfo, getItemsForToday } from "../data/";
+import { buildTodayStreak } from "./todaysStreak";
 export function showVictory(correct, total) {
   let vdiv = document.querySelector("#victory");
   let gameInfo = getGameInfo(guesses, targets);
@@ -18,20 +19,23 @@ export function showVictory(correct, total) {
         
       <div id="draw"></div>
     </div> 
+    <div class="today-streak">
+    </div>
       <div class="bar">   
         <button class="ct">Copy</button>
         <button class="cp">Copy Img</button>        
-        <span class="right">
-          
+        <span class="right">          
           <button class="plusOne">n+1</button>
       </div>
       <button class="c">&times;</button>
     </div>
   `;
+
   let cb = vdiv.querySelector("button.c");
   cb.addEventListener("click", function () {
     vdiv.classList.remove("active");
   });
+  buildTodayStreak(vdiv.querySelector(".today-streak"), cb);
   let canvas = document.createElement("canvas");
   document.documentElement.appendChild(canvas);
   drawVictory(canvas, guesses, targets);

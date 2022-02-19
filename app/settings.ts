@@ -20,7 +20,7 @@ document.querySelector(".ndown").addEventListener("click", function () {
   updateColumns();
 });
 
-function updateColumns() {
+export function updateColumns() {
   let v = nInput.valueAsNumber;
   let guesses = 5 + v;
   window.history.replaceState(null, "Nordle", "?n=" + v);

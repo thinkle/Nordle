@@ -88,7 +88,7 @@ let commitWord = (word: String) => {
     allowNoMoreChanges();
     guesses.push(word);
     saveWords(nth, guesses);
-    storeGame(guesses,targets)
+    storeGame(guesses, targets);
     commitColumnsAndKeyboard(word);
     return false;
   }

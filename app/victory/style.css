@@ -98,3 +98,22 @@
   max-width: 100%;
   width: 100%;
 }
+
+.today-streak {
+  margin-bottom: 5px;
+}
+
+#victory button.play {
+  background-color: var(--white);
+  color: var(--black);
+  border: none;
+  display: inline-block;
+  margin-right: 0.5em;
+}
+
+#victory button.success {
+  background-color: var(--green);
+}
+#victory button.failure {
+  background-color: var(--yellow);
+}
