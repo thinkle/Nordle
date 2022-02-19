@@ -1,10 +1,10 @@
 import { getItemsForToday } from "../data/";
 import type { GameInfo } from "../data/";
 import { nInput } from "../settings";
+
 export function buildTodayStreak(div: HTMLDivElement, closeButton) {
   div.innerHTML = "Today's Games: ";
   let todaysGames = getItemsForToday();
-
   if (todaysGames.length) {
     let maxn = todaysGames[todaysGames.length - 1].n;
     let playedByN = {};
@@ -21,7 +21,7 @@ export function buildTodayStreak(div: HTMLDivElement, closeButton) {
       div.appendChild(span);
     }
   }
-  for (let b of div.querySelectorAll("button.play")) {
+  for (let b of div.querySelectorAll(".play")) {
     b.addEventListener("click", function (event) {
       nInput.value = event.target.innerText;
       var evt = document.createEvent("HTMLEvents");
@@ -35,9 +35,15 @@ export function buildTodayStreak(div: HTMLDivElement, closeButton) {
 
 function makeCompleted(gameInfo: GameInfo) {
   return `
+  <span class="mini-summary-box ${
+    (gameInfo.success && "success") || "failure"
+  }"  >
   <button class="play 
-    ${(gameInfo.success && "success") || "failure"}    
+     
   ">
     ${gameInfo.n}</button>
+    <span class="icon">
+    ${(gameInfo.success && "✓") || "×"}
+    </span></span>
   `;
 }

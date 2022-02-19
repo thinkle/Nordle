@@ -2,15 +2,17 @@ import { words } from "./wordle/words";
 import { allWords, getTargetWords, setToday } from "./wordle";
 import { targets } from "./wordDisplay/";
 import { pushWord } from "./keyboard/";
-import {getDateKey} from './wordle/';
+import { getDateKey } from "./wordle/";
+import { updateColumns } from "./settings";
 const SHOW_KEYS = false;
-const TEST_VICTORY = false;
+const TEST_VICTORY = true;
 const TEST_WORDGET = false;
 const SHOW_POSSIBLE_WORDS = false;
-const SHUFFLE_WORDS = true;
-
+const SHUFFLE_WORDS = false;
 
 if (TEST_VICTORY) {
+  setToday(new Date(2099, 2, 2));
+  updateColumns();
   pushWord("happy");
   pushWord("sadly");
   for (let w of targets) {
@@ -18,14 +20,15 @@ if (TEST_VICTORY) {
   }
 }
 if (SHOW_KEYS) {
-  let out = document.querySelector('#words');
+  let out = document.querySelector("#words");
   let txt;
   let today = new Date();
-  for (let i=0; i<20; i++) {
+  for (let i = 0; i < 20; i++) {
     let day = new Date(
       today.getFullYear(),
       today.getMonth(),
-      today.getDay()+i);
+      today.getDay() + i
+    );
     let key = getDateKey(day);
     txt += `<br>${day} => ${key}`;
   }

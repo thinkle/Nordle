@@ -100,20 +100,43 @@
 }
 
 .today-streak {
-  margin-bottom: 5px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.right {
+  margin-left: auto;
 }
 
-#victory button.play {
+#victory .play {
   background-color: var(--white);
   color: var(--black);
   border: none;
+  min-width: 2em;
+  min-height: 2em;
   display: inline-block;
-  margin-right: 0.5em;
 }
 
-#victory button.success {
+#victory .mini-summary-box {
+  display: inline-flex;
+  justify-content: center;
+  position: relative;
+}
+
+.mini-summary-box .icon {
+  position: absolute;
+  right: -3px;
+  top: -8px;
+}
+
+#victory .mini-summary-box button {
+  background-color: transparent;
+}
+#victory .success {
   background-color: var(--green);
 }
-#victory button.failure {
+#victory .failure {
   background-color: var(--yellow);
 }

@@ -16,11 +16,11 @@ export function showVictory(correct, total) {
         }">Nordle ${new Date().toLocaleDateString()} n=${nth}, ${
     gameInfo.number_solved
   }/${gameInfo.n}</a>
-        
+        <div class="today-streak">
+        </div>
       <div id="draw"></div>
     </div> 
-    <div class="today-streak">
-    </div>
+    
       <div class="bar">   
         <button class="ct">Copy</button>
         <button class="cp">Copy Img</button>        
@@ -38,16 +38,25 @@ export function showVictory(correct, total) {
   buildTodayStreak(vdiv.querySelector(".today-streak"), cb);
   let canvas = document.createElement("canvas");
   document.documentElement.appendChild(canvas);
-  drawVictory(canvas, guesses, targets);
+  let canv = drawVictory(canvas, guesses, targets);
   setupPlusOne(vdiv, cb);
   vdiv.classList.add("active");
 
   let copyButton = vdiv.querySelector(".cp");
   let content = vdiv.querySelector(".msg");
+
   copyButton.addEventListener("click", function () {
-    let blob = new Blob([content.innerHTML], { type: "text/html" });
-    const item = new ClipboardItem({ "text/html": blob });
-    navigator.clipboard.write([item]);
+    //let blob = new Blob([content.innerHTML], { type: "text/html" });
+
+    canvas.toBlob(function (imageBlob) {
+      navigator.clipboard.write([
+        new ClipboardItem({
+          [imageBlob.type]: imageBlob,
+        }),
+      ]);
+    });
+    //const item = new ClipboardItem({ "text/html": blob });
+    //navigator.clipboard.write([item]);
   });
 
   let copyTextButton = vdiv.querySelector(".ct");
