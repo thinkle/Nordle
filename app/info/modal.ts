@@ -61,7 +61,15 @@ export function showModal() {
         B
       </span> </td>
       <td> 
-        Letter is not in the word.
+        Letter is not in the word.*
+        <br><small>
+        *Or not in the word this many times. If you guess
+        emcee and I'm thinking of enter, I would color
+        the last "e" grey because "enter" only has 2 e's. 
+        If you guess "emcee" and my word is 
+        "agree", I'll color your <em>first</em> e grey
+        because the <em>other 2</em> are green.
+        </small>
       </td>
     </tr>
     </table>
