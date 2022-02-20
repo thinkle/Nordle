@@ -118,6 +118,8 @@ export function makeColumn(nguesses: number): Column {
       this.currentRow = next;
       if (this.currentRow) {
         makeAriaInput(this.currentRow);
+      } else if (!this.complete) {
+        this.revealSolution();
       }
     },
     onChange: function (word: string) {
@@ -152,7 +154,6 @@ export function makeColumn(nguesses: number): Column {
       if (this.complete) {
         return;
       }
-      console.log("Bad word!");
       this.currentRow.classList.add("bad");
       this.currentRow.setAttribute(
         "aria-label",
@@ -160,6 +161,19 @@ export function makeColumn(nguesses: number): Column {
       );
       this.currentRow.addEventListener("animationend", function (event) {
         event.target.classList.remove("bad");
+      });
+    },
+
+    revealSolution: function (this: Column) {
+      let div = document.createElement("div");
+      div.classList.add("solution");
+      div.innerText = this.target;
+      this.col.appendChild(div);
+      div.addEventListener("animationstart", () => {
+        div.style.opacity = "1";
+        div.addEventListener("click", () => {
+          div.style.opacity = "0";
+        });
       });
     },
   };

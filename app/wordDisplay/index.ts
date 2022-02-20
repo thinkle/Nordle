@@ -50,14 +50,17 @@ function commitColumnsAndKeyboard(word, noninteractive = false) {
       }, delay);
     } else {
       gameOver = true;
+      let complete = 0;
+      columns.forEach((c) => {
+        if (c.complete) {
+          complete += 1;
+        }
+      });
+      if (complete < nth) {
+        delay *= 2;
+      }
       window.setTimeout(function () {
         resetKeyboard();
-        let complete = 0;
-        columns.forEach((c) => {
-          if (c.complete) {
-            complete += 1;
-          }
-        });
         for (let c of columns) {
           c.col.classList.remove("complete");
         }

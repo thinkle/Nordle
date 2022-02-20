@@ -3,13 +3,30 @@ import { allWords, getTargetWords, setToday } from "./wordle";
 import { targets } from "./wordDisplay/";
 import { pushWord } from "./keyboard/";
 import { getDateKey } from "./wordle/";
-import { updateColumns } from "./settings";
+import { updateColumns, nInput } from "./settings";
+window.alert("dev mode -- do NOT commit!");
+const CHANGE_DAY = true;
 const SHOW_KEYS = false;
-const TEST_VICTORY = true;
+const TEST_VICTORY = false;
+const TEST_LOSS = true;
 const TEST_WORDGET = false;
 const SHOW_POSSIBLE_WORDS = false;
 const SHUFFLE_WORDS = false;
-
+if (CHANGE_DAY) {
+  setToday(new Date(2099, 2, 2));
+  updateColumns();
+}
+if (TEST_LOSS) {
+  setToday(new Date(2099, 2, 3));
+  updateColumns();
+  let n = nInput.valueAsNumber;
+  /* n + 5 is the full number -- this is set up
+  so I can type in one by hand and watch the animation
+  or whatever */
+  for (let i = 0; i < n + 4; i++) {
+    pushWord(words[i]);
+  }
+}
 if (TEST_VICTORY) {
   setToday(new Date(2099, 2, 2));
   updateColumns();

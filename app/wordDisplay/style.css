@@ -82,6 +82,26 @@ ul {
   transition: none 0s;
 }
 
+.solution {
+  width: 100%;
+  text-align: center;
+  margin-top: -3em;
+  background-color: #2229;
+  color: var(--white);
+  z-index: 2;
+  position: relative;
+  padding: 1em;
+  box-sizing: border-box;
+  font-weight: bold;
+  text-shadow: 1px 1px var(--black);
+  font-size: 1.5em;
+  animation-name: slide-in;
+  animation-duration: 500ms;
+  animation-delay: 2000ms;
+  transition: opacity 2000ms;
+  opacity: 0;
+}
+
 @keyframes slide-in {
   0% {
     transform: translateX(-1.5em);
