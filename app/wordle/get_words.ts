@@ -4,18 +4,18 @@ export function setToday(d) {
   today = d;
 }
 
-export function getDateKey (date) {
-  //return date.getDate() * 30 + date.getFullYear() + date.getMonth() * 12  
+export function getDateKey(date) {
+  //return date.getDate() * 30 + date.getFullYear() + date.getMonth() * 12
   let baseDay = new Date(
     date.getFullYear(),
     date.getMonth(),
     date.getDate()
   ).getTime();
-  let baseTime = new Date(2022,0,1);
+  let baseTime = new Date(2022, 0, 1);
   let ms = baseDay - baseTime.getTime();
   let s = ms / 1000;
   let m = s / 60;
-  let h = m / 60
+  let h = m / 60;
   let d = h / 24;
   return d;
 }
@@ -23,7 +23,6 @@ export function getDateKey (date) {
 let today = new Date();
 export let dateKey = getDateKey(today);
 
-console.log(today, "=>", dateKey);
 let salt = 54;
 let salt2 = 117;
 export function getTargetWords(n) {

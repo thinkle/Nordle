@@ -112,9 +112,7 @@ export function getItemsForToday(): GameInfo[] {
   let results = [];
   let todaysKeyRegexp = new RegExp(`${dateKey}-[0-9]+-gameinfo`);
   for (let key in localStorage) {
-    console.log("Test", key, "against", todaysKeyRegexp);
     if (key.match(todaysKeyRegexp)) {
-      console.log("Got a key!");
       results.push(loadGame({ key }));
     }
   }

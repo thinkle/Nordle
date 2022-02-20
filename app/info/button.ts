@@ -1,5 +1,3 @@
-console.log("load button!");
-
 let span = document.createElement("span");
 
 span.innerHTML = `
