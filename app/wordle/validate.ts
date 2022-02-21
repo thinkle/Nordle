@@ -1,6 +1,6 @@
-import {wordSize} from './constants';
+import { wordSize } from "./constants";
 
-function countLetter(word, letter) {
+export function countLetter(word, letter) {
   let count = 0;
   for (let ltr of word) {
     if (ltr == letter) {
@@ -10,19 +10,19 @@ function countLetter(word, letter) {
   return count;
 }
 
-let victoryString = ""
-for (let i=0; i<wordSize; i++) {
-  victoryString += "🟩"
+let victoryString = "";
+for (let i = 0; i < wordSize; i++) {
+  victoryString += "🟩";
 }
 
 /**
  * Check guesses against word. Return which guess
  * was correct (1-based indexing).
  */
-export function checkGuesses (guesses : string[], word : string) : number {
+export function checkGuesses(guesses: string[], word: string): number {
   let i = 1; // count
   for (let g of guesses) {
-    let result = checkWordle(g, word).join('');
+    let result = checkWordle(g, word).join("");
     if (result == victoryString) {
       return i;
     }
