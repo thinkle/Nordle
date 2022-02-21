@@ -85,7 +85,6 @@ window.addEventListener("keydown", function (event) {
     return false;
   }
   if (event.target.closest("form")) {
-    console.log("Event in form ignore!");
     return false;
   }
   var button;
@@ -96,7 +95,7 @@ window.addEventListener("keydown", function (event) {
   } else if (event.key == "Backspace") {
     button = deleteButton;
   } else {
-    console.log("Ignore", event.key);
+    //console.log("Ignore", event.key);
   }
   if (button) {
     button.classList.add("active");
