@@ -669,6 +669,7 @@ export var allWords = [
   "blimp",
   "blimy",
   "blind",
+  "bling",
   "blini",
   "blink",
   "blips",
