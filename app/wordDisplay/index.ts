@@ -11,7 +11,7 @@ import {
   resetKeyboard,
 } from "../keyboard";
 
-import { getWords, saveWords, storeGame } from "../data/";
+import { getWords, saveWords, storeGame, loadGame } from "../data/";
 
 export let gameOver = false;
 let wordsDiv = document.querySelector("#words");
@@ -104,14 +104,15 @@ export function makeColumns(n: number, limit: number) {
   nth = n;
   wordsDiv.innerHTML = ""; // empty
   columns = [];
-  guesses = getWords(n);
+  let savedInfo = loadGame({ n: nth });
+  guesses = savedInfo?.guesses || getWords(n);
   // Fix bad guesses we saved by
   // accident :-\
   guesses = guesses.filter((w) => w.length == wordSize && isWord(w));
   targets = [];
   nguesses = limit;
   gameOver = false;
-  let targetWords = getTargetWords(n);
+  let targetWords = savedInfo?.targets || getTargetWords(n);
   for (let i = 0; i < n; i++) {
     let column = makeColumn(limit);
     column.target = targetWords[i];

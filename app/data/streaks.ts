@@ -62,14 +62,17 @@ export function getStreakInfo(n: number): {
 export function loadGame({
   n = 0,
   key = "",
-  dateKey = "",
+  datekey = null,
 }: {
   n?: number;
   key?: string;
-  dateKey?: string;
+  datekey?: number;
 }) {
+  if (!key && !datekey) {
+    datekey = dateKey; // global
+  }
   if (!key) {
-    key = `${dateKey}-${n}-gameinfo`;
+    key = `${datekey}-${n}-gameinfo`;
   }
   let result = localStorage.getItem(key);
   if (result) {
