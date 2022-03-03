@@ -1,9 +1,13 @@
 import { getItemsForToday } from "../data/";
 import type { GameInfo } from "../data/";
 import { nInput } from "../settings";
+import { button } from "../info/button";
 
 export function buildTodayStreak(div: HTMLDivElement, closeButton) {
-  div.innerHTML = "Today's Games: ";
+  div.innerHTML = `<div class="today-header">Today's Games: </div>`;
+  let buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("day-buttons");
+  div.appendChild(buttonContainer);
   let todaysGames = getItemsForToday();
   if (todaysGames.length) {
     let maxn = todaysGames[todaysGames.length - 1].n;
@@ -18,7 +22,7 @@ export function buildTodayStreak(div: HTMLDivElement, closeButton) {
       }
       let span = document.createElement("span");
       span.innerHTML = html;
-      div.appendChild(span);
+      buttonContainer.appendChild(span);
     }
   }
   for (let b of div.querySelectorAll(".play")) {
