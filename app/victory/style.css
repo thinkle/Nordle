@@ -97,17 +97,36 @@
 #draw img {
   max-width: 100%;
   width: 100%;
+  max-height: calc(100vh - 8em);
+  object-fit: contain;
+}
+
+#draw {
+  margin: auto;
 }
 
 .today-streak {
-  margin-top: 1em;
-  margin-bottom: 1em;
   display: flex;
-  gap: 5px;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
+.today-header {
+  margin-bottom: -0.5em;
+}
+.day-buttons {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  display: flex;
+  font-size: 0.8em;
+  gap: 5px;
+  overflow-x: auto;
+}
+.day-buttons button {
+  font-size: 60%;
+}
+
 .right {
   margin-left: auto;
+  display: flex;
 }
 
 #victory .play {

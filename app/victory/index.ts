@@ -23,7 +23,8 @@ export function showVictory(correct, total) {
     
       <div class="bar">   
         <button class="ct">Copy</button>
-        <button class="cp">Copy Img</button>        
+        <button class="cp">Copy Img</button>    
+        <button class="si">Save Img</button>    
         <span class="right">          
           <button class="plusOne">n+1</button>
       </div>
@@ -57,6 +58,14 @@ export function showVictory(correct, total) {
     });
     //const item = new ClipboardItem({ "text/html": blob });
     //navigator.clipboard.write([item]);
+  });
+
+  let sb = vdiv.querySelector(".si");
+  sb.addEventListener("click", function () {
+    var link = document.createElement("a");
+    link.download = `Nordle ${new Date().toLocaleDateString()}-${nth}.png`;
+    link.href = canv.toDataURL();
+    link.click();
   });
 
   let copyTextButton = vdiv.querySelector(".ct");

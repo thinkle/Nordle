@@ -32,7 +32,7 @@ function drawCanv(
 
   function drawDailyStreak() {
     let todaysGames = getItemsForToday();
-    let maxn = todaysGames[todaysGames.length - 1].n;
+    let maxn = targets.length; //todaysGames[todaysGames.length - 1].n;
     let colWidth = Math.min(SW * 2, (canvas.width * 0.8) / maxn);
     let PAD = SW;
     if (todaysGames.length) {
