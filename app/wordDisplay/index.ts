@@ -76,9 +76,9 @@ function commitColumnsAndKeyboard(word, noninteractive = false) {
       for (let c of columns) {
         c.col.classList.remove("complete");
       }
-      if (!noninteractive) {
-        onFinishCallback(nth, nth);
-      }
+      //if (!noninteractive) {
+      onFinishCallback(nth, nth);
+      //}
     }, delay);
   }
 }
