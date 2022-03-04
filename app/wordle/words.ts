@@ -166,7 +166,7 @@ export const words = [
   "speck",
   "means",
   "virus",
-  "fibre",
+  "fiber",
   "lasso",
   "briar",
   "vogue",
