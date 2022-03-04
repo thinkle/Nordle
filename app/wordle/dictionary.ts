@@ -1902,6 +1902,7 @@ export var allWords = [
   "elver",
   "elves",
   "elvis",
+  "email",
   "embar",
   "embay",
   "embed",
