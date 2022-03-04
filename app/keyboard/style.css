@@ -19,7 +19,7 @@ button span.big {
   display: contents;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1100px) {
   button span.big {
     display: none;
   }
@@ -44,7 +44,7 @@ button span.big {
 #keyboard button {
   justify-self: stretch;
   width: calc(var(--width) / 11.5); /*11.5);*/
-  min-height: calc(max(3rem, 33vh/3));
+  min-height: calc(max(2rem, 25vh/3));
   font-size: 2em;
   font-weight: bold;
   color: var(--black);
@@ -98,6 +98,7 @@ button span.big {
   display: grid;
   place-content: center;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 .big {
   text-transform: none;

@@ -57,7 +57,7 @@ for (let r of rows) {
 // Enter Button
 let enterButton = document.createElement("button");
 enterButton.classList.add("wide");
-enterButton.innerHTML = '<span class="big"> Enter</span> ⏎';
+enterButton.innerHTML = '<span class="big">Enter</span>⏎';
 enterButton.addEventListener("click", function () {
   if (!wordListener(word)) {
     word = "";
