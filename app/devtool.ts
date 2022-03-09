@@ -10,21 +10,23 @@ import {
   simpleSolve,
   getInfoFromGuess,
   testGetWords,
+  fancySolve,
+  fancyHardSolve,
 } from "./solver/";
 import "./list_maker/";
 const CHANGE_DAY = false;
 const SHOW_KEYS = false;
 const TEST_VICTORY = false;
 const TEST_LOSS = false;
-const TEST_WORDGET = true;
+const TEST_WORDGET = false;
 const SHOW_POSSIBLE_WORDS = false;
 const SHUFFLE_WORDS = false;
-const SOLVE_STUFF = false;
+const SOLVE_STUFF = true;
 
 if (SOLVE_STUFF) {
   let metadata = buildMetadata(words);
   let out = "";
-  if (true) {
+  if (false) {
     let guesses = ["fruit", "slate"];
     let wordlist = [
       "essay",
@@ -41,7 +43,7 @@ if (SOLVE_STUFF) {
     out += `\n:Original wordlist: ${wordlist}`;
     out += `\n:Filtered list: ${testGetWords(wordlist, guesses, target)}`;
   }
-  if (true) {
+  if (false) {
     for (let guess of ["taken", "spout", "shoes", "fries", "spore"]) {
       out += `${guess},flout => ${JSON.stringify(
         getInfoFromGuess(guess, "flout"),
@@ -52,14 +54,120 @@ if (SOLVE_STUFF) {
   }
   if (true) {
     out += "Solver solve:\n\n";
-    let target = "sassy"; // WE HAVE A BUG ON THIS ONE -- 2 AND 3 S'S
-    for (let i = 0; i < 133; i++) {
-      out += `\nTarget : ${target}`;
-      let results = simpleSolve(target);
-      out += `\n${results.guesses.length} \n\t${
+    //let target = "airer"; // WE HAVE A BUG ON THIS ONE -- 2 AND 3 S'S
+    let allResults = [];
+    //for (let i = 0; i < 1000; i++) {
+
+    for (let target of [
+      /* "sweet",
+      "viola",
+      "kabob",
+      "woman",
+      "anime",
+      "wiped",
+      "vexed",
+      "fight",
+      "joker",
+      "fixed",
+      "foxed",
+      "joked",
+      "boxer",
+      "vivid",
+      "shoes",
+      "bound",
+      "tight",
+      "viper",
+      "eager",
+      "giver",
+      "famed",
+      "voter",
+      "piper",
+      "baker",
+      "waded",
+      "wiper",
+      "diver",
+      "kazoo",
+      "refer", */
+      ...words,
+      //...words.slice(0, 50),
+    ]) {
+      // words) {
+      console.log("Solve", target);
+      let results = fancySolve(target); //fancySolve(target);
+      allResults.push({
+        target,
+        results,
+      });
+      /*
+      if (results.wordlist) {
+        var otherWords = results.wordlist.filter(
+          (w) => !allResults.find((ar) => ar.target == w)
+        );
+      }
+      if (otherWords.length) {
+        target = otherWords[0];
+      } else { */
+      //target = words[Math.floor(Math.random() * words.length)];
+      /* } */
+    }
+    allResults.sort(
+      (a, b) => b.results.guesses.length - a.results.guesses.length
+    );
+    // metadata...
+    let byGuesses = {};
+    for (let r of allResults) {
+      if (!byGuesses[r.results.guesses.length]) {
+        byGuesses[r.results.guesses.length] = [];
+      }
+      byGuesses[r.results.guesses.length].push(r.target);
+    }
+    out += "BY # of GUESSES:";
+    for (let n in byGuesses) {
+      let number = byGuesses[n].length;
+      let perc = (number * 100) / words.length;
+      out += `\n\t${n}: ${number} (${perc.toFixed(2)}%) `;
+      out += `\n\t\t${byGuesses[n].join(",")}`;
+    }
+    for (let { results, target } of allResults.slice(0, 50)) {
+      out += `\nTarget : ${target} solved in ${results.guesses.length}`;
+      if (results.guesses[results.guesses.length - 1] != target) {
+        out += ` FAIL!!!! ran out on ${
+          results.guesses[results.guesses.length - 1]
+        }`;
+      }
+      //let results = simpleSolve(target);
+      for (let i = 0; i < results.guesses.length; i++) {
+        if (results.results[i]) {
+          out += `\n\t${results.results[i].join("")} ${results.guesses[i]} => ${
+            results.remaining[i]
+          }`;
+          if (results.remaining[i] < 30) {
+            out += " " + results.remainingWordList[i];
+          }
+        } else {
+          out += `\n\t🟩🟩🟩🟩🟩 ${results.guesses[i]} ${
+            results.remaining[i] || 1
+          }`;
+        }
+      }
+      /*out += `\n${results.guesses.length} \n\t${
         results.guesses
-      }\n\t${results.results.map((r) => r.join(""))}`;
-      target = words[Math.floor(Math.random() * words.length)];
+      }\n\t${results.results.map((r, i) => `${r.join("")}`)}\n\t# of Words: ${
+        results.remaining
+      }`;
+      try {
+        var beforeLastGuess = results.remaining[results.guesses.length - 1];
+      } catch (err) {
+        console.log("wtf is up with ", results);
+        beforeLastGuess = 999;
+      }*/
+      /*if (beforeLastGuess == 1) {
+        out += `\n\tBefore last guess: 1   (Worst case: ${results.guesses.length})`;
+      } else {
+        out += `\n\tBefore last guess: ${beforeLastGuess} (Worst case: ${
+          results.guesses.length + beforeLastGuess - 1
+        })`;
+      } */
     }
     // You have a bug in this next one...
     // sores + sassy

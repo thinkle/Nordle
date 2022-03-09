@@ -6,10 +6,44 @@ allWords.map((w) => (wlookup[w] = 1));
 console.log("We have ", allWords.length, "words");
 export let allwords = Object.keys(wlookup);
 
-console.log("Eliminated dups yields:", allwords.length);
+//console.log("Eliminated dups yields:", allwords.length);
 
-export function buildMetadata(ww) {
-  let positions = {
+export type letter =
+  | "a"
+  | "b"
+  | "c"
+  | "d"
+  | "e"
+  | "f"
+  | "g"
+  | "h"
+  | "i"
+  | "j"
+  | "k"
+  | "l"
+  | "m"
+  | "n"
+  | "o"
+  | "p"
+  | "q"
+  | "r"
+  | "s"
+  | "t"
+  | "u"
+  | "v"
+  | "w"
+  | "x"
+  | "y"
+  | "z";
+export type letterLookup = {
+  [key: letter]: number;
+};
+export type Metadata = {
+  [key: number]: letterLookup;
+  anywhere: letterLookup;
+};
+export function buildMetadata(ww): Metadata {
+  let positions: Metadata = {
     0: {},
     1: {},
     2: {},
@@ -52,6 +86,10 @@ export function buildMetadata(ww) {
 }
 
 export function scoreWord(word, metadata): number {
+  /* We give a point based on letter frequency
+  to each letter, and then 50% of the points based on
+  bonus to each letter based on its odds of existing at allwords 
+  */
   let score = 0;
   let lettersWeveSeen = {};
   for (let i = 0; i < word.length; i++) {
@@ -80,33 +118,38 @@ export function simpleSolve(target) {
   // in each position and guess the word that hits them...
   let guesses = [];
   let results = [];
+  let remaining = [];
+  let remainingWordList = [["all..."]];
   let wordlist = allwords;
   do {
     if (guesses.length > 0) {
-      console.log("Filtering:", wordlist);
+      //console.log("Filtering:", wordlist);
       wordlist = getPossibleWords(wordlist, guesses, results);
-      console.log("After", guess, result, "we have", wordlist.length, wordlist);
+      //console.log("After", guess, result, "we have", wordlist.length, wordlist);
       if (wordlist.length == 0) {
         console.log("FAIL!");
         console.log("No words left after", guesses);
-        return { guesses, results };
+        return { guesses, results, remaining, wordlist, remainingWordList };
       }
     }
+    remaining.push(wordlist.length);
+    remainingWordList.push(wordlist.slice());
     let metadata;
+    var guess;
     if (!guesses.length) {
-      metadata = buildMetadata(words);
+      guess = "irate";
     } else {
       metadata = buildMetadata(wordlist);
+      let scoredWords = scoreWords(wordlist, metadata);
+      guess = scoredWords[0].word;
     }
-    let scoredWords = scoreWords(wordlist, metadata);
-    var guess = scoredWords[0].word;
-    console.log("Picked guess", guess, "from options", scoredWords);
+    //console.log("Picked guess", guess, "from options", scoredWords);
     guesses.push(guess);
     var result = checkWordle(guess, target);
-    console.log("Got result", result);
+    //console.log("Got result", result);
     results.push(result);
-  } while (target != guess && guesses.length < 10);
-  return { guesses, results };
+  } while (target != guess && guesses.length < 100);
+  return { guesses, results, remaining, wordlist, remainingWordList };
 }
 
 export function testGetWords(wordlist, guesses, target) {
@@ -114,7 +157,17 @@ export function testGetWords(wordlist, guesses, target) {
   return getPossibleWords(wordlist, guesses, results);
 }
 
-function getPossibleWords(wordlist, guesses, results) {
+export type GuessInfo = {
+  slots: [letter[], letter[], letter[], letter[], letter[]];
+  mustHave: {
+    [key: letter]: number;
+  };
+  cantHave: {
+    [key: letter]: number;
+  };
+};
+
+export function getInfoFromResults(guesses, results): GuessInfo {
   let slots = [
     Array.from("abcdefghijklmnopqrstuvwxyz"),
     Array.from("abcdefghijklmnopqrstuvwxyz"),
@@ -139,9 +192,18 @@ function getPossibleWords(wordlist, guesses, results) {
       }
     }
   }
-  console.log("Filtering based on slots: ", slots);
-  console.log("Must have:", mustHave);
-  console.log("Cannot have", cantHave);
+  return {
+    slots,
+    mustHave,
+    cantHave,
+  };
+}
+
+export function getPossibleWords(wordlist, guesses, results) {
+  let { slots, mustHave, cantHave } = getInfoFromResults(guesses, results);
+  //console.log("Filtering based on slots: ", slots);
+  //console.log("Must have:", mustHave);
+  //console.log("Cannot have", cantHave);
   return wordlist.filter((w) => {
     for (let i = 0; i < w.length; i++) {
       if (slots[i].indexOf(w[i]) == -1) {
@@ -178,17 +240,14 @@ export function getInfoFromResult(
 ) {
   let mustHave = {};
   let cantHave = {};
-  debugger;
   for (let li = 0; li < guess.length; li++) {
     if (result[li] == CORRECT) {
-      debugger;
       slots[li] = [guess[li]];
       if (mustHave[guess[li]]) {
         mustHave[guess[li]] += 1;
       } else {
         mustHave[guess[li]] = 1;
       }
-      mustHave[guess[li]] = 1;
     } else if (result[li] == PRESENT) {
       if (mustHave[guess[li]]) {
         mustHave[guess[li]] += 1;
@@ -198,6 +257,7 @@ export function getInfoFromResult(
       // Also we know it can't be in our slot...
       slots[li] = slots[li].filter((l) => l != guess[li]);
     } else if (result[li] == WRONG) {
+      // Remove from this slot...
       slots[li] = slots[li].filter((l) => l != guess[li]);
       cantHave[guess[li]] = 1;
     }
@@ -206,6 +266,14 @@ export function getInfoFromResult(
   for (let ltr in cantHave) {
     if (mustHave[ltr]) {
       cantHave[ltr] = mustHave[ltr] + 1;
+    } else {
+      // Remove from *all* slots
+      for (let si = 0; si < slots.length; si++) {
+        slots[si] = slots[si].filter((l) => l != ltr);
+        if (slots[si].length == 0) {
+          debugger;
+        }
+      }
     }
   }
   return {
