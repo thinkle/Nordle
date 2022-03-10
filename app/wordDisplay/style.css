@@ -17,7 +17,7 @@ ul {
 }
 
 .complete {
-  font-size: 50%;
+  font-size: calc(min(50%, 5px));
 }
 
 #words {
