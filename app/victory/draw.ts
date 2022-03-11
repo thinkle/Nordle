@@ -13,20 +13,43 @@ function drawCanv(
   const GREY = sty.getPropertyValue("--grey");
   canvas.style.border = "1px solid var(--green)";
   // We go with 25x25 per square
-  const SW = 100;
+  let SW = 100;
   let ctx = canvas.getContext("2d");
 
   setupCanvasSize();
   drawSquares();
   drawDailyStreak();
+  drawOverlay();
+
+  function drawOverlay() {
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#ffffffdd";
+    ctx.strokeStyle = "#111d";
+    ctx.font = "42pt InputBetaSerifMono";
+    ctx.fillText(`n=${targets.length}`, canvas.width / 2, canvas.height / 2);
+    ctx.strokeText(`n=${targets.length}`, canvas.width / 2, canvas.height / 2);
+    ctx.textAlign = "right";
+    ctx.font = "16pt InputBetaSerifMono";
+    ctx.fillStyle = "#111d3";
+    ctx.fillText("nordle.us", canvas.width, canvas.height - 18);
+    ctx.fill();
+  }
 
   function setupCanvasSize() {
+    if (targets.length < 10) {
+      SW = 50;
+    } else {
+      SW = 1920 / (5 * targets.length);
+    }
+    if (SW < 1) {
+      SW = 1;
+    }
     canvas.width =
       5 + targets.length * (1 + wordSize) * SW + (targets.length - 1 * SW);
     canvas.height = SW * 4 + (targets.length + 4) * SW + SW * 2;
     let ratio = canvas.width / canvas.height;
-    canvas.style.height = `${canvas.height}px`; //"calc(var(--height)/2)";
-    canvas.style.width = `${canvas.width}px`; // `calc(var(--height)*${ratio}/2)`;
+    //canvas.style.height = `${canvas.height}px`; //"calc(var(--height)/2)";
+    //canvas.style.width = `${canvas.width}px`; // `calc(var(--height)*${ratio}/2)`;
     canvas.style.display = "none";
   }
 
