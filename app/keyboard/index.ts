@@ -92,7 +92,7 @@ window.addEventListener("keydown", function (event) {
     button = buttons[event.key];
   } else if (event.key == "Enter") {
     button = enterButton;
-  } else if (event.key == "Backspace") {
+  } else if (event.key == "Backspace" || event.key == "Delete") {
     button = deleteButton;
   } else {
     //console.log("Ignore", event.key);
