@@ -23,14 +23,14 @@ function drawCanv(
 
   function drawOverlay() {
     ctx.textAlign = "center";
-    ctx.fillStyle = "#ffffffdd";
-    ctx.strokeStyle = "#111d";
+    ctx.strokeStyle = "#ffffffdd";
+    ctx.fillStyle = "#111d";
     ctx.font = "42pt InputBetaSerifMono";
     ctx.fillText(`n=${targets.length}`, canvas.width / 2, canvas.height / 2);
     ctx.strokeText(`n=${targets.length}`, canvas.width / 2, canvas.height / 2);
     ctx.textAlign = "right";
     ctx.font = "16pt InputBetaSerifMono";
-    ctx.fillStyle = "#111d3";
+    //ctx.fillStyle = "#111d3";
     ctx.fillText("nordle.us", canvas.width, canvas.height - 18);
     ctx.fill();
   }
@@ -139,8 +139,10 @@ function drawCanv(
           }
           if (guess && !completed[ti]) {
             ctx.fillRect(x + i * SW, y, SW * 0.8, SW * 0.8);
+          } else {
+            ctx.fillStyle = "#efefef";
+            ctx.fillRect(x + i * SW, y, SW * 0.8, SW * 0.8);
           }
-          ctx.strokeRect(x + i * SW, y, SW * 0.8, SW * 0.8);
         }
         if (areWeDone) {
           completed[ti] = true;
