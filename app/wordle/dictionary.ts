@@ -5121,6 +5121,7 @@ export var allWords = [
   "sakis",
   "salad",
   "salem",
+  "salet",
   "sales",
   "sally",
   "salon",
