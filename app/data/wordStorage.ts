@@ -1,5 +1,5 @@
 import { dateKey, getDateKey } from "../wordle/get_words";
-import {checkGuesses} from '../wordle/';
+import { checkGuesses } from "../wordle/";
 
 export function getWords(n) {
   let key = `${dateKey}-${n}`;
@@ -8,7 +8,9 @@ export function getWords(n) {
     if (value && value.length) {
       return value;
     } else {
-      console.log("bad value?", value);
+      if (value) {
+        console.log("bad value?", value);
+      }
       return [];
     }
   } catch (err) {
