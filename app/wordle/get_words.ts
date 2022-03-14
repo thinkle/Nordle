@@ -17,7 +17,7 @@ export function getDateKey(date) {
   let m = s / 60;
   let h = m / 60;
   let d = h / 24;
-  return Math.floor(d);
+  return Math.floor(d) + 1;
 }
 
 let today = new Date();
