@@ -87,6 +87,9 @@ window.addEventListener("keydown", function (event) {
   if (event.target.closest("form")) {
     return false;
   }
+  if (event.target.closest("#n")) {
+    return false;
+  }
   var button;
   if (buttons[event.key]) {
     button = buttons[event.key];

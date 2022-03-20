@@ -42,6 +42,7 @@ button span.big {
 }
 
 #keyboard button {
+  touch-action: manipulation;
   justify-self: stretch;
   width: calc(var(--width) / 11.5); /*11.5);*/
   min-height: calc(max(2rem, 25vh/3));

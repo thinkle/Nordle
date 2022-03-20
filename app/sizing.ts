@@ -8,6 +8,19 @@ img.style.width = "1em";
 img.style.height = "1em";
 fsButton.style.marginLeft = "auto";
 
+if (
+  [
+    "iPad Simulator",
+    "iPhone Simulator",
+    "iPod Simulator",
+    "iPad",
+    "iPhone",
+    "iPod",
+  ].includes(navigator.platform)
+) {
+  fsButton.remove();
+}
+
 let b = document.querySelector("body");
 let fsMode = false;
 fsButton.addEventListener("click", function () {
@@ -56,6 +69,10 @@ window.addEventListener(
   false
 );
 window.addEventListener("resize", function () {
+  updateSize();
+});
+
+document.addEventListener("focusout", function (e) {
   updateSize();
 });
 

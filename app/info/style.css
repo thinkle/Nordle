@@ -23,6 +23,9 @@ button.info {
   border-radius: 50%;
   width: 1.5em;
   height: 1.5em;
+  display: grid;
+  box-sizing: border-box;
+  place-content: center;
 }
 .modal .close {
   position: sticky;
@@ -30,6 +33,10 @@ button.info {
   float: right;
   border-radius: 50%;
   border: none;
+  width: 1.5em;
+  height: 1.5em;
+  display: grid;
+  place-content: center;
 }
 .modal {
   max-width: calc(min(100vw, 450px));
@@ -54,4 +61,12 @@ button.info {
   transform: translateY(0);
   pointer-events: all;
   z-index: 2;
+}
+
+@supports (-webkit-touch-callout: none) {
+  button.info,
+  .modal .close {
+    width: 2em;
+    height: 2em;
+  }
 }

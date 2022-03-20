@@ -22,10 +22,12 @@ document.querySelector(".ndown").addEventListener("click", function () {
 
 export function updateColumns() {
   let v = nInput.valueAsNumber;
-  let guesses = 5 + v;
-  window.history.replaceState(null, "Nordle", "?n=" + v);
-  //location.search = '?n='+v;
-  makeColumns(v, guesses);
+  if (v) {
+    let guesses = 5 + v;
+    window.history.replaceState(null, "Nordle", "?n=" + v);
+    //location.search = '?n='+v;
+    makeColumns(v, guesses);
+  }
 }
 
 nInput.addEventListener("change", updateColumns);
