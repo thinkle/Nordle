@@ -16,12 +16,13 @@ import {
 import "./list_maker/";
 const CHANGE_DAY = false;
 const SHOW_KEYS = false;
+const TEST_PARTIAL = false;
 const TEST_VICTORY = false;
 const TEST_LOSS = false;
-const TEST_WORDGET = false;
+const TEST_WORDGET = true;
 const SHOW_POSSIBLE_WORDS = false;
 const SHUFFLE_WORDS = false;
-const SOLVE_STUFF = true;
+const SOLVE_STUFF = false;
 
 if (SOLVE_STUFF) {
   let metadata = buildMetadata(words);
@@ -88,7 +89,14 @@ if (SOLVE_STUFF) {
       "diver",
       "kazoo",
       "refer", */
-      ...words,
+      //...words,
+      "month",
+      "acrid",
+      "pygmy",
+      "above",
+      "abuzz",
+      "about",
+
       //...words.slice(0, 50),
     ]) {
       // words) {
@@ -207,6 +215,13 @@ if (TEST_LOSS) {
     pushWord(words[i]);
   }
 }
+if (TEST_PARTIAL) {
+  setToday(new Date(2099, 2, 3));
+  updateColumns();
+  for (let w of targets.slice(0, 2)) {
+    pushWord(w);
+  }
+}
 if (TEST_VICTORY) {
   setToday(new Date(2099, 2, 2));
   updateColumns();
@@ -237,11 +252,11 @@ if (TEST_WORDGET) {
   <pre>
   `;
   let wordappearances = {};
-  for (let d = 1; d < 23; d++) {
-    let date = new Date(2022, 1, d);
+  for (let d = 1; d < 14; d++) {
+    let date = new Date(2029, 6, d, 12);
     setToday(date);
     txt += `\n${date} ${getDateKey(date)}\n`;
-    for (let n = 1; n < 16; n++) {
+    for (let n = 1; n < 10; n++) {
       let targets = getTargetWords(n);
       txt += `${n}\t` + targets + "\n";
       targets.map((t) => {
@@ -257,16 +272,20 @@ if (TEST_WORDGET) {
   let wordsUsed = 0;
   let uses = 0;
   let maxrepeats = 0;
+  let maxrepeated = [];
   for (let k in wordappearances) {
     wordsUsed += 1;
     uses += wordappearances[k].length;
     if (wordappearances[k].length > maxrepeats) {
       maxrepeats = wordappearances[k].length;
+      maxrepeated = [k];
+    } else if (wordappearances[k].length == maxrepeats) {
+      maxrepeated.push(k);
     }
   }
   txt += `\n${wordsUsed} used, on average ${uses / wordsUsed} times`;
-  txt += `\nMax repeats: ${maxrepeats}`;
-  txt += `\n${wordappearances}`;
+  txt += `\nMax repeats: ${maxrepeats} (${maxrepeated})`;
+  txt += `\n${JSON.stringify(wordappearances)}`;
   out.innerHTML = txt + "</pre>";
   document.querySelector("main").style.display = "none";
   document.querySelector("body").appendChild(out);

@@ -23,84 +23,105 @@ export function getDateKey(date) {
 let today = new Date();
 export let dateKey = getDateKey(today);
 
-let salt = 54;
-let salt2 = 117;
+let sortCache = {};
 
-export function getTargetWordsNEW(n) {
-  // 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18...
-  // Day 1: 1: 1...     (start = 1)
-  //        2: 2, 3     (spacing = 1)
-  //        3: 4, 5, 6
-  //
-  // Day 2:    (start = 200, spacing = 2)
-  //       1: 200
-  //       2: 202, 204
-  //       3: 206, 208, 210
-  //       4: 212, 214, 218, 218
-  // Day 7:
-  //       1: 700
-  //       2: 707, 714
-  //       3: 721, 728, 735
-  // Day 100:
-  //       1: 1...
-  //       2: 101, 201
-  //       3: 301, 401, 501,
-  //       4: 601, 701, 801, 901...
-  // Day 101:
-  //       1: 501
-  //       2: 602, 703
-  //       3: 804, 905, 1006
-  dateKey = getDateKey(today);
-  let skipSize = dateKey % 100; /* here be magic? */
-  let startIndex = dateKey * 300; /* here be more magic! */
-  let firstWord = getStart(n);
-  let mywords = [];
-  for (let i = 0; i < n; i++) {
-    let index = firstWord + i;
-    let wordIndex = startIndex + index * skipSize;
-    //mywords.push(words[wordIndex % words.length]);
-    mywords.push(wordIndex % words.length);
+let initialSortFunctions = [
+  //(l) => l.reverse(),
+  (l) => l,
+  (l) => l.sort((a, b) => scrabbleScore(a) - scrabbleScore(b)),
+];
+
+function scrabbleScore(w) {
+  const scrab = {
+    a: 1,
+    b: 3,
+    c: 3,
+    d: 2,
+    e: 1,
+    f: 4,
+    g: 2,
+    h: 4,
+    i: 1,
+    j: 8,
+    k: 5,
+    l: 1,
+    m: 3,
+    n: 1,
+    o: 1,
+    p: 3,
+    q: 10,
+    r: 1,
+    s: 1,
+    t: 1,
+    u: 1,
+    v: 4,
+    w: 4,
+    x: 8,
+    y: 4,
+    z: 10,
+  };
+  let score = 0;
+  for (let l of w) {
+    score += scrab[l] || 0;
   }
+  return score;
+}
+
+function makeSorterForLetter(i) {
+  return function (lst) {
+    lst.sort((a, b) => {
+      if (a[i] > b[i]) {
+        return 1;
+      } else if (a[i] < b[i]) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+  };
+}
+
+for (let i = 0; i < 5; i++) {
+  initialSortFunctions.push(makeSorterForLetter(i));
+}
+
+function sortWordsForDate(n) {
+  if (sortCache[n]) {
+    return sortCache[n];
+  }
+  // swap every word with the word n from it...
+  let alreadySwapped = {};
+  let mywords = words.slice();
+  let initialSorter = initialSortFunctions[n % initialSortFunctions.length];
+  initialSorter(mywords);
+  let swapWith = n;
+  for (let i = 0; i < mywords.length; i++) {
+    let current = i;
+    let target = (i + swapWith) % words.length;
+    if (!alreadySwapped[current]) {
+      let temp = mywords[i];
+      mywords[i] = mywords[target];
+      mywords[target] = temp;
+      alreadySwapped[target] = true;
+      alreadySwapped[i] = true;
+      // Move one further out...
+      swapWith += 1;
+    }
+  }
+  sortCache[n] = mywords;
   return mywords;
 }
 
-function getStart(n: number) {
-  let total = 0;
-  for (let nn = 0; nn < n; nn++) {
-    for (let i = 0; i < nn; i++) {
-      total += 1;
-    }
-  }
-  return total;
-}
-
 export function getTargetWords(n) {
-  if (n >= words.length) {
-    words.sort((a, b) => Math.random() - 2);
-    return words;
-  }
-  dateKey = getDateKey(today);
-  let index = (salt2 * n + dateKey) % words.length;
-  let list = [words[index]];
+  let dateKey = getDateKey(today);
+  let mywords = sortWordsForDate(dateKey);
+  let offset = 0;
   for (let i = 1; i < n; i++) {
-    let idx = (index + i * (n * (salt + dateKey))) % words.length;
-    let word = words[idx];
-    if (list.indexOf(word) > -1) {
-      // duplicate!
-      list.push(getAdjacentWord(list, idx, words));
-    } else {
-      list.push(words[idx]);
-    }
+    offset += i;
+  }
+  let list = [];
+  for (let idx = offset; idx < offset + n; idx++) {
+    list.push(mywords[idx % words.length]);
   }
   return list;
-}
-function getAdjacentWord(currentList, idx, words) {
-  for (let i = 1; i < words.length; i++) {
-    let newIndex = idx + (i % words.length);
-    if (currentList.indexOf(words[newIndex]) == -1) {
-      return words[newIndex];
-    }
-  }
-  console.log("getAdjacent failure :(");
-  return "fails";
 }
