@@ -23,7 +23,7 @@ document.querySelector(".ndown").addEventListener("click", function () {
 export function updateColumns() {
   let v = nInput.valueAsNumber;
   if (v) {
-    let guesses = 5 + v;
+    let guesses = 5 + Math.abs(v);
     window.history.replaceState(null, "Nordle", "?n=" + v);
     //location.search = '?n='+v;
     makeColumns(v, guesses);

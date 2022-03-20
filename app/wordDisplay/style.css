@@ -38,6 +38,15 @@ ul {
   display: flex;
   gap: var(--letter-gap);
 }
+
+/* negative game easter egg */
+.reverse .guess {
+  flex-direction: row-reverse;
+}
+.reverse .solution {
+  transform: rotateY(180deg);
+}
+
 .guess span,
 .block {
   width: 1.5em;

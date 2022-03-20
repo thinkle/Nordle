@@ -99,25 +99,41 @@ let commitWord = (word: String) => {
 onWordCommit(commitWord);
 onWordChange((word: String) => columns.forEach((c) => c.onChange(word)));
 
-export function makeColumns(n: number, limit: number) {
+/* 
+function flipWord(w) {
+  let newWord = "";
+  for (let i = w.length - 1; i > -1; i--) {
+    newWord += w[i];
+  }
+  return newWord;
+} */
+
+export function makeColumns(n: number, limit: number): void {
   resetKeyboard();
-  nth = n;
+  let reverseMode = false;
+  nth = Math.abs(n);
+  if (n < 0) {
+    reverseMode = true;
+  }
   wordsDiv.innerHTML = ""; // empty
   columns = [];
   let savedInfo = loadGame({ n: nth });
-  guesses = savedInfo?.guesses || getWords(n);
+  guesses = savedInfo?.guesses || getWords(nth);
   // Fix bad guesses we saved by
   // accident :-\
   guesses = guesses.filter((w) => w.length == wordSize && isWord(w));
   targets = [];
   nguesses = limit;
   gameOver = false;
-  let targetWords = savedInfo?.targets || getTargetWords(n);
-  for (let i = 0; i < n; i++) {
+  let targetWords = savedInfo?.targets || getTargetWords(nth);
+  for (let i = 0; i < nth; i++) {
     let column = makeColumn(limit);
     column.target = targetWords[i];
     column.col.setAttribute("aria-label", `Word ${i + 1}`);
     column.col.setAttribute("role", "list");
+    if (reverseMode) {
+      column.col.classList.add("reverse");
+    }
     targets.push(targetWords[i]);
     wordsDiv.appendChild(column.col);
     columns.push(column);
