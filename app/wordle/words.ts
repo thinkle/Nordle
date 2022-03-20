@@ -1146,7 +1146,6 @@ export const words = [
   "koala",
   "debug",
   "dowse",
-  "korea",
   "stain",
   "rocky",
   "quark",
