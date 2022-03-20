@@ -474,7 +474,6 @@ export const words = [
   "wheel",
   "lumen",
   "fetid",
-  "delhi",
   "sixth",
   "manly",
   "kitty",
