@@ -138,7 +138,7 @@ export function makeColumns(n: number, limit: number): void {
     wordsDiv.appendChild(column.col);
     columns.push(column);
   }
-  wordsDiv.style.setProperty("--n", `${n}`);
+  wordsDiv.style.setProperty("--n", `${nth}`);
   wordsDiv.style.setProperty("--limit", `${limit}`);
   for (let g of guesses) {
     commitColumnsAndKeyboard(g, true);
