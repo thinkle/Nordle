@@ -28,6 +28,7 @@ let sortCache = {};
 let initialSortFunctions = [
   //(l) => l.reverse(),
   (l) => l,
+  (l) => pseudoshuffle(l),
   (l) => l.sort((a, b) => scrabbleScore(a) - scrabbleScore(b)),
 ];
 
@@ -67,6 +68,22 @@ function scrabbleScore(w) {
   return score;
 }
 
+function pseudoshuffle(l) {
+  let swapped = {};
+  let swapOffset = 350;
+  for (let i = 0; i < l.length; i++) {
+    if (!swapped[i]) {
+      let target = (i + swapOffset) % l.length;
+      swapped[target] = true;
+      let value = l[i];
+      l[i] = l[target];
+      l[target] = value;
+      swapped[i] = true;
+      swapOffset += 200;
+    }
+  }
+}
+
 function makeSorterForLetter(i) {
   return function (lst) {
     lst.sort((a, b) => {
@@ -78,6 +95,7 @@ function makeSorterForLetter(i) {
         return 0;
       }
     });
+    pseudoshuffle(lst);
   };
 }
 
@@ -124,4 +142,12 @@ export function getTargetWords(n) {
     list.push(mywords[idx % words.length]);
   }
   return list;
+}
+
+export function testSorter() {
+  for (let datekey = 10; datekey < 10000; datekey *= 10) {
+    for (let offset = 0; offset < initialSortFunctions.length; offset++) {
+      console.log(datekey + offset, sortWordsForDate(dateKey + offset));
+    }
+  }
 }
