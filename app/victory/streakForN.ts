@@ -23,7 +23,7 @@ export function buildStreakForN(div: HTMLDivElement) {
   });
 
   let longestInfo = "";
-  if (streakInfo.longestStreak) {
+  if (false && streakInfo.longestStreak) {
     let dateInfo = "";
     // We might have some old date keys from before we simplified sitting in
     // local storage which would read as dates far in the future... so we'll check
