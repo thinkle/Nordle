@@ -159,3 +159,30 @@
 #victory .failure {
   background-color: var(--yellow);
 }
+.overall-streak {
+  margin-left: auto;
+  text-align: right;
+}
+.overall-streak button {
+  border-width: 0 !important;
+}
+.overall-streak button:hover {
+  border-width: inherit !important;
+}
+.n-streak .hide,.n-streak .show {
+  transform-origin: top;
+  transition: all 300ms;
+}
+
+.n-streak .hide {
+  height : 0;  
+  transform: scaleY(0);  
+  opacity: 0;
+}
+
+.n-streak .show {  
+  height : 4em;
+  display: block;
+  transform: scaleY(1);
+  opacity: 1;
+}

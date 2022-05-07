@@ -47,17 +47,8 @@ export type GameInfo = {
   number_solved: number;
   complete: boolean;
   success: boolean;
+  datekey?: number;
 };
-
-export function getStreakInfo(n: number): {
-  longestStreak: number;
-  currentStreakStart: null | Date;
-} {
-  return {
-    longestStreak: 0,
-    currentStreakStart: null,
-  };
-}
 
 export function loadGame({
   n = 0,
@@ -74,6 +65,9 @@ export function loadGame({
   if (!key) {
     key = `${datekey}-${n}-gameinfo`;
   }
+  if (key && !datekey) {
+    datekey = Number(key.split("-")[0]);
+  }
   let result = localStorage.getItem(key);
   if (result) {
     try {
@@ -83,7 +77,7 @@ export function loadGame({
       console.log(result);
       return null;
     }
-    return getGameInfo(guesses, targets);
+    return getGameInfo(guesses, targets, datekey);
   }
 }
 
@@ -95,7 +89,11 @@ export function storeGame(guesses: string[], targets: string[]): GameInfo {
   return getGameInfo(guesses, targets);
 }
 
-export function getGameInfo(guesses: string[], targets: string[]): GameInfo {
+export function getGameInfo(
+  guesses: string[],
+  targets: string[],
+  datekey?: number
+): GameInfo {
   localStorage.save;
   let totalGuesses = 5 + targets.length;
   let results = targets.map((t) => checkGuesses(guesses, t));
@@ -105,10 +103,85 @@ export function getGameInfo(guesses: string[], targets: string[]): GameInfo {
     targets,
     guesses,
     results,
+    datekey,
     number_solved: nsolved,
     complete: nsolved == targets.length || totalGuesses == guesses.length,
     success: nsolved == targets.length,
   };
+}
+
+export type StreakInfo = {
+  n: number;
+  currentStreak: number;
+  longestStreak: number;
+  longestStreakStart: number;
+  attempted: number;
+  solved: number;
+  wordsSolved: number;
+};
+
+export function getStreak(n) {
+  let streakInfo: StreakInfo = {
+    n,
+    currentStreak: 0,
+    longestStreak: 0,
+    longestStreakStart: -1,
+    attempted: 0,
+    solved: 0,
+    wordsSolved: 0,
+  };
+  let allGames = getItemsForN(n);
+  let longestStreak = [];
+  let currentStreak = [];
+  let streak = [];
+  for (let g of allGames) {
+    streakInfo.attempted += 1;
+    streakInfo.wordsSolved += g.number_solved;
+    if (g.success) {
+      streakInfo.solved += 1;
+    }
+    if (streak.length == 0) {
+      streak.push(g);
+      if (g.datekey == dateKey) {
+        currentStreak = streak;
+      }
+    } else {
+      let lastGame = streak[streak.length - 1];
+      // If we are building our streak, add to it...
+      if (lastGame.datekey - g.datekey == 1) {
+        streak.push(g);
+        if ((g.datekey = dateKey)) {
+          currentStreak = streak;
+        }
+      } else {
+        // ending a streak...
+        if (streak.length > longestStreak.length) {
+          // new longest!
+          longestStreak = streak;
+        }
+        // reset the streak we are tracking...
+        streak = [];
+      }
+    }
+  }
+  if (longestStreak.length) {
+    streakInfo.longestStreak = longestStreak.length;
+    streakInfo.longestStreakStart = longestStreak[0].datekey;
+  }
+  streakInfo.currentStreak = currentStreak.length;
+  return streakInfo;
+}
+
+export function getItemsForN(n: number): GameInfo[] {
+  let results = [];
+  let todaysKeyRegexp = new RegExp(`[0-9]+-${n}-gameinfo`);
+  for (let key in localStorage) {
+    if (key.match(todaysKeyRegexp)) {
+      results.push(loadGame({ key }));
+    }
+  }
+  results.sort((a, b) => b.datekey - a.datekey);
+  return results;
 }
 
 export function getItemsForToday(): GameInfo[] {

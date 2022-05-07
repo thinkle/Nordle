@@ -4,6 +4,10 @@ export function setToday(d) {
   today = d;
 }
 
+export function getDateFromKey(key: number) {
+  return new Date(2022, 0, key);
+}
+
 export function getDateKey(date) {
   //return date.getDate() * 30 + date.getFullYear() + date.getMonth() * 12
   let baseDay = new Date(
