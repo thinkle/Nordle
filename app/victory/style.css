@@ -20,11 +20,12 @@
 #victory > * {
   background-color: var(--white);
   color: var(--black);
-  padding: 3em;
+  box-sizing: border-box;
+  padding: 2em;
   border: 1px solid var(--grey);
   box-shadow: 3px 3px #0004;
   border-radius: 5px;
-  max-width: calc(100vw - 10em);
+  max-width: calc(100vw - 2em);
   overflow: auto;
   max-height: calc(100vh - 10em);
 }
@@ -186,4 +187,54 @@
   display: block;
   transform: scaleY(1);
   opacity: 1;
+}
+.copy-icon {
+  width: 1.5em;
+  height: 2em;
+  border: 2px solid black;  
+  position: relative;
+  top: -2px;
+  left: -2px;
+  
+}
+.copy-icon::after {
+  content : " ";  
+  background-color: var(--white);
+  width: 1.5em;
+  display: grid;
+  height: 2em;    
+  border: 2px solid black;
+  position: relative;
+  top: 5px;
+  left: 5px;
+}
+.copy-text::after {
+  content: "txt";
+}
+.copy-img::after {
+  content: "img"
+}
+
+#victory button.sh {  
+  display: grid;
+  place-content: center;
+  align-self: stretch;
+}
+.sh svg {
+  width: 2em;
+  height: 2em;
+}
+
+.streak-popout {
+  position: absolute;
+  top: 4em;
+  left: 5%;
+  padding: 1em;
+  box-sizing: border-box;
+  border: 1px solid #f80;
+  width: 90%;
+  height: 80%;
+  overflow-y: scroll;
+  background-color: var(--white);
+  z-index: 99;
 }

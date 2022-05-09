@@ -1,4 +1,5 @@
 import "./style.css";
+import { share } from "./share";
 import { setupPlusOne } from "./plusOne";
 import { guesses, targets, nth } from "../wordDisplay";
 import { drawVictory } from "./draw";
@@ -28,10 +29,10 @@ export function showVictory(correct, total) {
     </div> 
     
       <div class="bar">   
-        <button class="sh">Share</button>
-        <button class="ct">Copy</button>
-        <button class="cp">Copy Img</button>    
-        <button class="si">Save Img</button>    
+        <button class="sh">${share}</button>
+        <button class="ct"><div class="copy-icon copy-text"></div></button>
+        <button class="cp"><div class="copy-icon copy-img"></div></button>    
+        <button class="si">⇩</button>    
         <span class="right">          
           <button class="plusOne">n+1</button>
       </div>
@@ -65,6 +66,9 @@ export function showVictory(correct, total) {
   });
 
   let shb = vdiv.querySelector("button.sh");
+  if (!navigator.share) {
+    //shb.style.display = "none";
+  }
   shb.addEventListener("click", function () {
     canvas.toBlob(function (imageBlob) {
       let file = new File(
@@ -85,7 +89,7 @@ export function showVictory(correct, total) {
       if (navigator.canShare && navigator.canShare(shareData)) {
         navigator
           .share(shareData)
-          .then((r) => window.alert(`yes!!! ${r}`))
+          //.then((r) => window.alert(`yes!!! ${r}`))
           .catch((e) => {
             console.log("ERROR!!!!");
             console.log(e);

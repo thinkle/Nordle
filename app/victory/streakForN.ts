@@ -20,6 +20,7 @@ export function buildStreakForN(div: HTMLDivElement) {
   button.addEventListener("click", () => {
     streakInfoDiv.classList.toggle("hide");
     streakInfoDiv.classList.toggle("show");
+    div.classList.toggle("streak-popout");
   });
 
   let longestInfo = "";
@@ -63,6 +64,16 @@ export function buildStreakForN(div: HTMLDivElement) {
         <td>${streakInfo.currentStreak}</td>        
       </tr>
       ${longestInfo}   
+      <tr>
+        <td>Wins</td>
+        <td>${streakInfo.solved}/${streakInfo.attempted}</td>
+      </tr>
+      <tr>
+        <td>Words solved</td>
+        <td>${streakInfo.wordsSolved}/${
+    streakInfo.attempted * streakInfo.n
+  }</td>
+      </tr>
     </table>
   `;
   div.appendChild(streakInfoDiv);
