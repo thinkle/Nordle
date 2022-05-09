@@ -224,8 +224,12 @@
   width: 2em;
   height: 2em;
 }
+.overall-streak {
+  max-width: 4em;
+}
 
 .streak-popout {
+  max-width: 100%;
   position: absolute;
   top: 4em;
   left: 5%;

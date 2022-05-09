@@ -35,9 +35,8 @@ export function buildStreakForN(div: HTMLDivElement) {
       new Date().getTime()
     ) {
       dateInfo = `
-      <tr>
-        <td></td>
-        <td>From ${getDateFromKey(
+      <tr>        
+        <td style="text-align:right" colspan="2">From ${getDateFromKey(
           streakInfo.longestStreakStart
         ).toLocaleDateString()}
           to ${getDateFromKey(
