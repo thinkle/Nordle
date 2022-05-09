@@ -150,7 +150,7 @@ export function getStreak(n) {
       // If we are building our streak, add to it...
       if (lastGame.datekey - g.datekey == 1) {
         streak.push(g);
-        if ((g.datekey = dateKey)) {
+        if (g.datekey == dateKey) {
           currentStreak = streak;
         }
       } else {
