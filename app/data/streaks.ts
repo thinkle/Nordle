@@ -163,6 +163,9 @@ export function getStreak(n) {
         streak = [];
       }
     }
+    if (streak.length > longestStreak.length) {
+      longestStreak = streak;
+    }
   }
   if (longestStreak.length) {
     streakInfo.longestStreak = longestStreak.length;
