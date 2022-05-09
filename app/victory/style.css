@@ -236,8 +236,7 @@
   padding: 1em;
   box-sizing: border-box;
   border: 1px solid #f80;
-  width: 90%;
-  height: 80%;
+  width: 90%;  
   overflow-y: scroll;
   background-color: var(--white);
   z-index: 99;
