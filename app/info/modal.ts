@@ -90,6 +90,13 @@ export function showModal() {
     <a href="https://djr.com/input/">Input Font</a>, which he was kind enough
     to send me for use in this application. I think it looks pretty great.
     </p>
+    <h3>More Word Games</h3>
+    <p>If you like Nordle, you might enjoy my other word games:
+    <a href="https://www.fogglegame.com" target="_blank" rel="noopener">Foggle</a>,
+    a boggle-like word game, and
+    <a href="https://word-fall.netlify.app" target="_blank" rel="noopener">Word Fall</a>,
+    which is still in development.
+    </p>
 
     `;
   modal.querySelector(".close").addEventListener("click", hideModal);
