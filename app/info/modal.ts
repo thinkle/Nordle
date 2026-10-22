@@ -75,7 +75,7 @@ export function showModal() {
     </table>
     <h3>About the Author</h3>
     <p>This is written by 
-    <a href="mailto:tmhinkle@gmail.com">Tom Hinkle</a>. Game is
+    <a href="http://tomhinkle.net/">Tom Hinkle</a>. Game is
     (obviously) inspired by the original Wordle
     by Josh Wardle and also by the Dordle.</p>
     <p>I aimed to bring back some of the attention
@@ -89,6 +89,13 @@ export function showModal() {
     <a href="https://djr.com/">David Jonathan Ross's</a> 
     <a href="https://djr.com/input/">Input Font</a>, which he was kind enough
     to send me for use in this application. I think it looks pretty great.
+    </p>
+    <h3>More Word Games</h3>
+    <p>If you like Nordle, you might enjoy my other word games:
+    <a href="https://www.fogglegame.com" target="_blank" rel="noopener">Foggle</a>,
+    a boggle-like word game, and
+    <a href="https://word-fall.netlify.app" target="_blank" rel="noopener">Word Fall</a>,
+    which is still in development.
     </p>
 
     `;
