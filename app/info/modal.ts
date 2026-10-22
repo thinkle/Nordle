@@ -75,7 +75,7 @@ export function showModal() {
     </table>
     <h3>About the Author</h3>
     <p>This is written by 
-    <a href="mailto:tmhinkle@gmail.com">Tom Hinkle</a>. Game is
+    <a href="http://tomhinkle.net/">Tom Hinkle</a>. Game is
     (obviously) inspired by the original Wordle
     by Josh Wardle and also by the Dordle.</p>
     <p>I aimed to bring back some of the attention
